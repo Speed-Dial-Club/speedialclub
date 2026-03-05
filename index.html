@@ -18,17 +18,14 @@ box-sizing:border-box;
 }
 
 body{
-min-height:100vh;
+height:100vh;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
 background:#D60B2A;
 font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Helvetica,Arial,sans-serif;
 color:white;
-overflow-x:hidden;
-position:relative;
-text-align:center;
+overflow:hidden;
 }
 
 body::before{
@@ -48,13 +45,10 @@ animation:glowMove 8s ease-in-out infinite alternate;
 
 .container{
 position:relative;
+text-align:center;
 z-index:2;
-padding:20px;
-width:100%;
 max-width:600px;
-display:flex;
-flex-direction:column;
-align-items:center;
+margin:auto;
 }
 
 .logo{
@@ -92,7 +86,7 @@ position:absolute;
 bottom:30px;
 width:100%;
 text-align:center;
-font-size:11px;
+font-size:14px;
 color:rgba(255,255,255,0.8);
 letter-spacing:0.05em;
 }
@@ -169,5 +163,3 @@ setTimeout(typeLoop, 700);
 
 </body>
 </html>
-
-
