@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Speed Dial Club</title>
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#D60B2A;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Helvetica,Arial,sans-serif;
+color:white;
+overflow:hidden;
+}
+
+body::before{
+content:"";
+position:absolute;
+width:700px;
+height:700px;
+background:radial-gradient(circle, rgba(255,255,255,0.18), transparent 65%);
+filter:blur(120px);
+animation:glowMove 8s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove{
+0%{transform:translate(-150px,-80px);}
+100%{transform:translate(150px,80px);}
+}
+
+.container{
+position:relative;
+text-align:center;
+z-index:2;
+}
+
+.logo{
+width:280px;
+margin-bottom:40px;
+}
+
+.text{
+font-size:60px;
+font-weight:600;
+letter-spacing:-0.02em;
+text-shadow:0 0 20px rgba(255,255,255,0.3);
+}
+
+/* bigger cursor */
+
+.cursor{
+display:inline-block;
+width:4px;
+height:60px;
+background:white;
+margin-left:8px;
+animation:blink 1.2s infinite;
+vertical-align:bottom;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
+}
+
+.footer{
+position:absolute;
+bottom:30px;
+width:100%;
+text-align:center;
+font-size:14px;
+color:rgba(255,255,255,0.8);
+letter-spacing:0.05em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="SDC Logo.png" class="logo">
+
+<div>
+<span class="text" id="text"></span>
+<span class="cursor"></span>
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 Speed Dial Club Private Limited
+</div>
+
+<script>
+
+const message = "Dialing Soon.....";
+
+const typingSpeed = 90;
+const deletingSpeed = 50;
+
+const pauseAfterTyping = 1000;
+const pauseAfterDeleting = 1000;
+
+let i = 0;
+let isDeleting = false;
+
+const target = document.getElementById("text");
+
+function typeLoop(){
+
+if(!isDeleting){
+target.textContent = message.substring(0, i+1);
+i++;
+
+if(i === message.length){
+isDeleting = true;
+setTimeout(typeLoop, pauseAfterTyping);
+return;
+}
+
+}else{
+
+target.textContent = message.substring(0, i-1);
+i--;
+
+if(i === 0){
+isDeleting = false;
+setTimeout(typeLoop, pauseAfterDeleting);
+return;
+}
+
+}
+
+let speed = isDeleting ? deletingSpeed : typingSpeed;
+setTimeout(typeLoop, speed);
+
+}
+
+setTimeout(typeLoop, 700);
+
+</script>
+
+</body>
+</html>
