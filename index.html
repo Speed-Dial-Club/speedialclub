@@ -91,6 +91,7 @@ text-align:center;
 font-size:12px;
 color:rgba(255,255,255,0.8);
 letter-spacing:0.05em;
+z-index:2;
 }
 
 /* hamburger */
@@ -205,6 +206,55 @@ height:22px;
 object-fit:contain;
 }
 
+/* hidden IPL page */
+
+.ipl-page{
+display:none;
+position:absolute;
+top:0;
+left:0;
+width:100%;
+min-height:100dvh;
+padding:100px 20px 60px;
+flex-direction:column;
+align-items:center;
+overflow-y:auto;
+z-index:3;
+}
+
+.ipl-page.active{
+display:flex;
+}
+
+.ipl-logo{
+width:clamp(200px,35vw,260px);
+margin-bottom:40px;
+}
+
+.ipl-title{
+font-size:clamp(34px,6vw,54px);
+font-weight:600;
+letter-spacing:-0.03em;
+margin-bottom:40px;
+text-align:center;
+}
+
+.iframe-wrapper{
+width:100%;
+max-width:720px;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 60px rgba(0,0,0,0.25);
+background:white;
+}
+
+.iframe-wrapper iframe{
+width:100%;
+height:720px;
+border:none;
+background:white;
+}
+
 </style>
 
 </head>
@@ -228,8 +278,32 @@ object-fit:contain;
 
 </div>
 
+<!-- IPL Hidden Page -->
+
+<div class="ipl-page" id="iplPage">
+
+<img src="SDC Logo.png" class="ipl-logo">
+
+<div class="ipl-title">
+IPL Screening Tickets
+</div>
+
+<div class="iframe-wrapper">
+
+<iframe
+src="https://luma.com/embed/event/evt-CJSnsv3YNAJ9x4G/simple"
+frameborder="0"
+allow="fullscreen; payment"
+aria-hidden="false"
+tabindex="0">
+</iframe>
+
+</div>
+
+</div>
+
 <div class="footer">
-© 2026 Speed Dial Club
+© 2026 Speed Dial Club Private Limited
 </div>
 
 <div class="contact-panel" id="contactPanel">
@@ -252,7 +326,7 @@ contact@speedialclub.in
 
 <a href="tel:+917899497320">
 <img src="phone.png" class="icon">
-+91 78994 97320
++91 7899497320
 </a>
 
 </div>
@@ -279,13 +353,16 @@ const target = document.getElementById("text");
 function typeLoop(){
 
 if(!isDeleting){
+
 target.textContent = message.substring(0, i+1);
 i++;
 
 if(i === message.length){
+
 isDeleting = true;
 setTimeout(typeLoop, pauseAfterTyping);
 return;
+
 }
 
 }else{
@@ -294,9 +371,11 @@ target.textContent = message.substring(0, i-1);
 i--;
 
 if(i === 0){
+
 isDeleting = false;
 setTimeout(typeLoop, pauseAfterDeleting);
 return;
+
 }
 
 }
@@ -322,8 +401,41 @@ btn.classList.toggle("active");
 
 }
 
+/* hidden route system */
+
+const iplPage = document.getElementById("iplPage");
+const mainContainer = document.querySelector(".container");
+const footer = document.querySelector(".footer");
+
+function checkRoute(){
+
+if(window.location.hash === "#ipl-tickets"){
+
+mainContainer.style.display = "none";
+footer.style.display = "none";
+
+iplPage.classList.add("active");
+
+document.body.style.overflow = "auto";
+
+}else{
+
+mainContainer.style.display = "block";
+footer.style.display = "block";
+
+iplPage.classList.remove("active");
+
+document.body.style.overflow = "hidden";
+
+}
+
+}
+
+checkRoute();
+
+window.addEventListener("hashchange", checkRoute);
+
 </script>
 
 </body>
 </html>
-
