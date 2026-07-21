@@ -218,7 +218,7 @@ object-fit:contain;
 
 /* hidden IPL page */
 
-.ipl-page{
+.page{
 display:none;
 position:absolute;
 top:0;
@@ -232,7 +232,7 @@ overflow-y:auto;
 z-index:3;
 }
 
-.ipl-page.active{
+.page.active{
 display:flex;
 }
 
@@ -290,11 +290,19 @@ background:white;
 
 <!-- IPL Hidden Page -->
 
-<div class="ipl-page" id="iplPage">
+<div class="page" id="iplPage">
 
 <img src="SDC Logo.png" class="ipl-logo">
 
 <div class="ipl-title">
+</div>
+
+  <div class="page" id="creatorPage">
+
+</div>
+
+<div class="page" id="thankYouPage">
+
 </div>
 
 
@@ -416,29 +424,44 @@ const iplPage = document.getElementById("iplPage");
 const mainContainer = document.querySelector(".container");
 const footer = document.querySelector(".footer");
 
-function checkRoute(){
+const routes = {
+  "#ipl-tickets": document.getElementById("iplPage"),
+  "#creator-payout-portal": document.getElementById("creatorPage"),
+  "#thank-you": document.getElementById("thankYouPage")
+};
 
-if(window.location.hash === "#ipl-tickets"){
+const mainContainer = document.querySelector(".container");
+const footer = document.querySelector(".footer");
 
-mainContainer.style.display = "none";
-footer.style.display = "none";
+function checkRoute() {
 
-iplPage.classList.add("active");
+  // Hide every page
+  Object.values(routes).forEach(page => {
+    if (page) page.classList.remove("active");
+  });
 
-document.body.style.overflow = "auto";
+  if (routes[window.location.hash]) {
 
-}else{
+    mainContainer.style.display = "none";
+    footer.style.display = "none";
 
-mainContainer.style.display = "block";
-footer.style.display = "block";
+    routes[window.location.hash].classList.add("active");
 
-iplPage.classList.remove("active");
+    document.body.style.overflow = "auto";
 
-document.body.style.overflow = "hidden";
+  } else {
+
+    mainContainer.style.display = "block";
+    footer.style.display = "block";
+
+    document.body.style.overflow = "hidden";
+
+  }
 
 }
 
-}
+checkRoute();
+window.addEventListener("hashchange", checkRoute);
 
 checkRoute();
 
