@@ -297,15 +297,6 @@ background:white;
 <div class="ipl-title">
 </div>
 
-  <div class="page" id="creatorPage">
-
-</div>
-
-<div class="page" id="thankYouPage">
-
-</div>
-
-
 <a
   href="https://luma.com/event/evt-CJSnsv3YNAJ9x4G"
   class="luma-checkout--button"
@@ -316,6 +307,14 @@ background:white;
 </a>
 
 <script id="luma-checkout" src="https://embed.lu.ma/checkout-button.js"></script>
+
+</div>
+
+    <div class="page" id="creatorPage">
+
+</div>
+
+<div class="page" id="thankYouPage">
 
 </div>
 
@@ -420,7 +419,6 @@ btn.classList.toggle("active");
 
 /* hidden route system */
 
-const iplPage = document.getElementById("iplPage");
 const mainContainer = document.querySelector(".container");
 const footer = document.querySelector(".footer");
 
@@ -430,8 +428,6 @@ const routes = {
   "#thank-you": document.getElementById("thankYouPage")
 };
 
-const mainContainer = document.querySelector(".container");
-const footer = document.querySelector(".footer");
 
 function checkRoute() {
 
@@ -461,10 +457,6 @@ function checkRoute() {
 }
 
 checkRoute();
-window.addEventListener("hashchange", checkRoute);
-
-checkRoute();
-
 window.addEventListener("hashchange", checkRoute);
 
 </script>
