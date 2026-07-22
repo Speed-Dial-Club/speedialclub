@@ -1,5 +1,3 @@
-function initTyping() {
-
 const message = "Dialing Soon.....";
 
 const typingSpeed = 90;
@@ -47,7 +45,5 @@ function initTyping() {
     }
 
     setTimeout(typeLoop, 700);
-
-}
 
 }
