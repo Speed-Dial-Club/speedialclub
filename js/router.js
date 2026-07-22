@@ -1,28 +1,25 @@
 function initRouter() {
 
+    const pages = document.querySelectorAll(".page");
     const mainContainer = document.querySelector(".container");
     const footer = document.querySelector(".footer");
 
-    const routes = {
-        "#ipl-tickets": document.getElementById("iplPage"),
-        "#creator-payout-portal": document.getElementById("creatorPage"),
-        "#thank-you": document.getElementById("thankYouPage")
-    };
-
     function checkRoute() {
 
-        Object.values(routes).forEach(page => {
-            if (page) {
-                page.classList.remove("active");
-            }
-        });
+        pages.forEach(page => page.classList.remove("active"));
 
-        if (routes[window.location.hash]) {
+        const route = window.location.hash.replace("#", "");
+
+        const page = document.querySelector(
+            `.page[data-route="${route}"]`
+        );
+
+        if (page) {
 
             mainContainer.style.display = "none";
             footer.style.display = "none";
 
-            routes[window.location.hash].classList.add("active");
+            page.classList.add("active");
 
             document.body.style.overflow = "auto";
 
