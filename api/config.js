@@ -1,6 +1,6 @@
 const CONFIG = {
 
-    API_URL: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE",
+    API_URL: "https://script.google.com/macros/s/AKfycbx1lHef41ve0OU3z3Y0q_6d-BL5Ahc4KbslXnRuwexi8HY81qcIK87j7CQlW1P9MWg/exec",
 
     MAX_FILE_SIZE: 10 * 1024 * 1024,
 
