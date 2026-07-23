@@ -18,9 +18,52 @@ body{
     overflow-x:hidden;
     overflow-y:auto !important;
 
-    background:#f7f8fb !important;
+    background:#D60B2A !important;
 
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Helvetica,Arial,sans-serif;
+
+    color:#fff;
+
+}
+
+/* glow */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:700px;
+    height:700px;
+
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.18),
+        transparent 65%
+    );
+
+    filter:blur(120px);
+
+    animation:glowMove 8s ease-in-out infinite alternate;
+
+    z-index:-1;
+
+}
+
+@keyframes glowMove{
+
+0%{
+
+    transform:translate(-150px,-80px);
+
+}
+
+100%{
+
+    transform:translate(150px,80px);
+
+}
 
 }
 
