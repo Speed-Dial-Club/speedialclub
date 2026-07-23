@@ -181,15 +181,9 @@ async function submitForm(e) {
 
         const payload = await getFormData();
 
-        const response = await submitPayout(payload);
+   await submitPayout(payload);
 
-        if (!response.success) {
-
-            throw new Error(response.message);
-
-        }
-
-        window.location.hash = "#thank-you";
+window.location.hash = "#thank-you";
 
     }
 
