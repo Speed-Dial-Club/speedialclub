@@ -127,9 +127,9 @@ async function getFormData() {
 
     const file = document.getElementById("invoice").files[0];
 
-    const payload = {
+    return {
 
-        fullName: document.getElementById("fullName").value.trim(),
+        name: document.getElementById("fullName").value.trim(),
 
         phone: document.getElementById("phone").value.trim(),
 
@@ -147,13 +147,11 @@ async function getFormData() {
 
         campaign: document.getElementById("campaign").value,
 
-        fileName: file.name,
+        pdf: await fileToBase64(file),
 
-        fileData: await fileToBase64(file)
+        fileName: file.name
 
     };
-
-    return payload;
 
 }
 
