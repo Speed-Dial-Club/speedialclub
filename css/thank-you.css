@@ -1,0 +1,232 @@
+/* ===========================
+   Thank You Page
+=========================== */
+
+.thank-you-page{
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:80px 24px;
+
+    position:relative;
+    overflow:hidden;
+
+    background:#f7f8fb;
+
+}
+
+.thank-you-card{
+
+    width:100%;
+    max-width:620px;
+
+    background:#ffffff;
+
+    border-radius:28px;
+
+    padding:60px 48px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.08);
+
+    animation:fadeUp .7s ease;
+
+    position:relative;
+    z-index:2;
+
+}
+
+.success-icon{
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 28px;
+
+    border-radius:50%;
+
+    background:#16a34a;
+
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:42px;
+    font-weight:700;
+
+    animation:pop .55s ease;
+
+}
+
+.thank-you-card h1{
+
+    font-size:2.2rem;
+
+    margin-bottom:18px;
+
+    color:#111827;
+
+    line-height:1.25;
+
+}
+
+.thank-you-card p{
+
+    font-size:1.05rem;
+
+    color:#6b7280;
+
+    line-height:1.8;
+
+    margin-bottom:36px;
+
+}
+
+.thank-you-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:15px 36px;
+
+    border-radius:999px;
+
+    background:#D60B2A;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.thank-you-btn:hover{
+
+    background:#b70924;
+
+    transform:translateY(-2px);
+
+}
+
+#confetti-container{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+.confetti{
+
+    position:absolute;
+
+    width:10px;
+    height:16px;
+
+    opacity:.9;
+
+    animation:confettiFall linear forwards;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes pop{
+
+    0%{
+
+        transform:scale(.3);
+
+    }
+
+    70%{
+
+        transform:scale(1.12);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+@keyframes confettiFall{
+
+    from{
+
+        transform:translateY(-120px) rotate(0deg);
+
+        opacity:1;
+
+    }
+
+    to{
+
+        transform:translateY(110vh) rotate(720deg);
+
+        opacity:0;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .thank-you-card{
+
+        padding:42px 28px;
+
+    }
+
+    .thank-you-card h1{
+
+        font-size:1.8rem;
+
+    }
+
+    .success-icon{
+
+        width:72px;
+        height:72px;
+
+        font-size:34px;
+
+    }
+
+}
