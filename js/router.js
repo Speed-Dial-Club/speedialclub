@@ -6,33 +6,39 @@ function initRouter() {
 
     function checkRoute() {
 
-        pages.forEach(page => page.classList.remove("active"));
+    const route = window.location.hash.replace("#", "");
 
-        const route = window.location.hash.replace("#", "");
+    const page = document.querySelector(
+        `.page[data-route="${route}"]`
+    );
 
-        const page = document.querySelector(
-            `.page[data-route="${route}"]`
-        );
+    document.querySelectorAll(".page").forEach(p => {
+        p.classList.remove("active");
+    });
 
-        if (page) {
+    if (page) {
 
-            mainContainer.style.display = "none";
-            footer.style.display = "none";
+        mainContainer.style.display = "none";
+        footer.style.display = "none";
 
-            page.classList.add("active");
+        page.classList.add("active");
 
-            document.body.style.overflow = "auto";
+        window.scrollTo(0, 0);
 
-        } else {
+        document.body.style.overflow = "auto";
 
-            mainContainer.style.display = "block";
-            footer.style.display = "block";
+    } else {
 
-            document.body.style.overflow = "hidden";
+        mainContainer.style.display = "block";
+        footer.style.display = "block";
 
-        }
+        window.scrollTo(0, 0);
+
+        document.body.style.overflow = "auto";
 
     }
+
+}
 
     checkRoute();
 
