@@ -58,17 +58,19 @@ async function loadCampaigns() {
             </option>
         `;
 
-        response.data.forEach(campaign => {
+      const campaigns = response.campaigns || [];
 
-            const option = document.createElement("option");
+campaigns.forEach(campaign => {
 
-            option.value = campaign;
+    const option = document.createElement("option");
 
-            option.textContent = campaign;
+    option.value = campaign;
 
-            dropdown.appendChild(option);
+    option.textContent = campaign;
 
-        });
+    dropdown.appendChild(option);
+
+});
 
     }
 
