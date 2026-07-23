@@ -177,15 +177,19 @@ async function submitForm(e) {
 
     submitBtn.innerText = "Submitting...";
 
-    try {
+   try {
 
-        const payload = await getFormData();
+    const payload = await getFormData();
 
-   await submitPayout(payload);
+    await submitPayout(payload);
 
-window.location.hash = "#thank-you";
+    form.reset();
 
-    }
+    document.getElementById("selectedFile").innerHTML = "";
+
+    window.location.hash = "#thank-you";
+
+}
 
     catch (error) {
 
