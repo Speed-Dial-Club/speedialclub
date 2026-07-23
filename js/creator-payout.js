@@ -108,6 +108,146 @@ function handleFileSelection(e) {
 
 }
 
+
+function showError(field, message) {
+
+    field.classList.add("input-error");
+
+    const error = field.parentElement.querySelector(".error-message");
+
+    error.textContent = message;
+
+    error.classList.add("show");
+
+}
+
+function clearError(field) {
+
+    field.classList.remove("input-error");
+
+    const error = field.parentElement.querySelector(".error-message");
+
+    error.textContent = "";
+
+    error.classList.remove("show");
+
+}
+
+function validateField(field) {
+
+    const value = field.value.trim();
+
+    switch (field.id) {
+
+        case "fullName":
+
+            if (!value)
+                return showError(field, "Full name is required.");
+
+            break;
+
+        case "phone":
+
+            if (!/^[6-9]\d{9}$/.test(value))
+                return showError(field, "Enter a valid mobile number.");
+
+            break;
+
+        case "email":
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+                return showError(field, "Enter a valid email.");
+
+            break;
+
+        case "accountNumber":
+
+            if (!value)
+                return showError(field, "Account number is required.");
+
+            break;
+
+        case "ifsc":
+
+            if (!/^[A-Z]{4}0[A-Z0-9]{6}$/i.test(value))
+                return showError(field, "Invalid IFSC code.");
+
+            break;
+
+        case "branch":
+
+            if (!value)
+                return showError(field, "Branch is required.");
+
+            break;
+
+        case "pan":
+
+            if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/i.test(value))
+                return showError(field, "Invalid PAN number.");
+
+            break;
+
+        case "gst":
+
+            if (
+                value &&
+                !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/i.test(value)
+            )
+                return showError(field, "Invalid GST number.");
+
+            break;
+
+        case "campaign":
+
+            if (!value)
+                return showError(field, "Select a campaign.");
+
+            break;
+
+    }
+
+    clearError(field);
+
+    return true;
+
+}
+
+function validateForm() {
+
+    let valid = true;
+
+    form.querySelectorAll("input, select").forEach(field => {
+
+        if (validateField(field) !== true)
+            valid = false;
+
+    });
+
+    const file = document.getElementById("invoice").files[0];
+
+    if (!file) {
+
+        const upload = document.querySelector(".upload-box");
+
+        upload.classList.add("input-error");
+
+        upload.parentElement
+            .querySelector(".error-message")
+            .classList.add("show");
+
+        upload.parentElement
+            .querySelector(".error-message")
+            .textContent = "Please upload your invoice.";
+
+        valid = false;
+
+    }
+
+    return valid;
+
+}
+
 /* ==========================================================
    FILE TO BASE64
 ========================================================== */
@@ -170,7 +310,10 @@ async function getFormData() {
 
 async function submitForm(e) {
 
-    e.preventDefault();
+   e.preventDefault();
+
+if (!validateForm())
+    return;
 
     const file = document.getElementById("invoice").files[0];
 
