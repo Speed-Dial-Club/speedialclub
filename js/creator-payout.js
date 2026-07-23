@@ -3,6 +3,7 @@
 ========================================================== */
 
 const form = document.getElementById("creatorPayoutForm");
+const submitBtn = document.getElementById("submitBtn");
 
 if (form) {
     initCreatorPayout();
@@ -43,9 +44,7 @@ async function loadCampaigns() {
     const dropdown = document.getElementById("campaign");
 
     dropdown.innerHTML = `
-        <option value="">
-            Loading Campaigns...
-        </option>
+        <option value="">Loading Campaigns...</option>
     `;
 
     try {
@@ -53,24 +52,21 @@ async function loadCampaigns() {
         const response = await getCampaigns();
 
         dropdown.innerHTML = `
-            <option value="">
-                Select Campaign
-            </option>
+            <option value="">Select Campaign</option>
         `;
 
-      const campaigns = response.campaigns || [];
+        const campaigns = response.campaigns || [];
 
-campaigns.forEach(campaign => {
+        campaigns.forEach(campaign => {
 
-    const option = document.createElement("option");
+            const option = document.createElement("option");
 
-    option.value = campaign;
+            option.value = campaign;
+            option.textContent = campaign;
 
-    option.textContent = campaign;
+            dropdown.appendChild(option);
 
-    dropdown.appendChild(option);
-
-});
+        });
 
     }
 
@@ -79,9 +75,7 @@ campaigns.forEach(campaign => {
         console.error(error);
 
         dropdown.innerHTML = `
-            <option value="">
-                Unable to load campaigns
-            </option>
+            <option value="">Unable to load campaigns</option>
         `;
 
     }
@@ -89,12 +83,12 @@ campaigns.forEach(campaign => {
 }
 
 /* ==========================================================
-   FILE
+   FILE SELECTION
 ========================================================== */
 
-function handleFileSelection(event) {
+function handleFileSelection(e) {
 
-    const file = event.target.files[0];
+    const file = e.target.files[0];
 
     if (!file) return;
 
@@ -106,13 +100,115 @@ function handleFileSelection(event) {
 }
 
 /* ==========================================================
+   FILE TO BASE64
+========================================================== */
+
+function fileToBase64(file) {
+
+    return new Promise((resolve, reject) => {
+
+        const reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result);
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+/* ==========================================================
+   GET FORM DATA
+========================================================== */
+
+async function getFormData() {
+
+    const file = document.getElementById("invoice").files[0];
+
+    const payload = {
+
+        fullName: document.getElementById("fullName").value.trim(),
+
+        phone: document.getElementById("phone").value.trim(),
+
+        email: document.getElementById("email").value.trim(),
+
+        accountNumber: document.getElementById("accountNumber").value.trim(),
+
+        ifsc: document.getElementById("ifsc").value.trim().toUpperCase(),
+
+        branch: document.getElementById("branch").value.trim(),
+
+        pan: document.getElementById("pan").value.trim().toUpperCase(),
+
+        gst: document.getElementById("gst").value.trim().toUpperCase(),
+
+        campaign: document.getElementById("campaign").value,
+
+        fileName: file.name,
+
+        fileData: await fileToBase64(file)
+
+    };
+
+    return payload;
+
+}
+
+/* ==========================================================
    SUBMIT
 ========================================================== */
 
-async function submitForm(event) {
+async function submitForm(e) {
 
-    event.preventDefault();
+    e.preventDefault();
 
-    alert("Submission wiring starts in the next commit.");
+    const file = document.getElementById("invoice").files[0];
+
+    if (!file) {
+
+        alert("Please upload your invoice.");
+
+        return;
+
+    }
+
+    submitBtn.disabled = true;
+
+    submitBtn.innerText = "Submitting...";
+
+    try {
+
+        const payload = await getFormData();
+
+        const response = await submitPayout(payload);
+
+        if (!response.success) {
+
+            throw new Error(response.message);
+
+        }
+
+        window.location.hash = "#thank-you";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(error.message || "Something went wrong.");
+
+    }
+
+    finally {
+
+        submitBtn.disabled = false;
+
+        submitBtn.innerText = "Submit Invoice";
+
+    }
 
 }
