@@ -1,1 +1,382 @@
+/* ==========================================================
+   CREATOR PAYOUT PORTAL
+========================================================== */
 
+.page[data-route="creator-payout-portal"]{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding:80px 20px;
+    box-sizing:border-box;
+}
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.payout-card{
+
+    width:100%;
+    max-width:900px;
+
+    background:#ffffff;
+
+    border-radius:32px;
+
+    padding:60px;
+
+    box-sizing:border-box;
+
+    box-shadow:
+        0 20px 60px rgba(214,11,42,.10),
+        0 8px 25px rgba(214,11,42,.08);
+
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.page-header{
+
+    text-align:center;
+
+    margin-bottom:60px;
+
+}
+
+.page-header h1{
+
+    margin:0;
+
+    color:#D60B2A;
+
+    font-family:Inter,sans-serif;
+
+    font-size:40px;
+
+    font-weight:700;
+
+}
+
+.page-header p{
+
+    margin-top:18px;
+
+    color:#555;
+
+    line-height:1.7;
+
+    font-size:16px;
+
+}
+
+.security-banner{
+
+    margin-top:28px;
+
+    padding:18px 22px;
+
+    border-radius:18px;
+
+    background:rgba(214,11,42,.06);
+
+    color:#D60B2A;
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   SECTION
+========================================================== */
+
+.form-section{
+
+    margin-bottom:55px;
+
+}
+
+.form-section:last-of-type{
+
+    margin-bottom:40px;
+
+}
+
+.form-section h2{
+
+    margin-bottom:30px;
+
+    color:#D60B2A;
+
+    font-size:15px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    font-weight:700;
+
+}
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+.grid{
+
+    display:grid;
+
+    gap:24px;
+
+}
+
+.two-column{
+
+    grid-template-columns:1fr 1fr;
+
+}
+
+/* ==========================================================
+   INPUT GROUP
+========================================================== */
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:24px;
+
+}
+
+.input-group label{
+
+    margin-bottom:10px;
+
+    color:#444;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+}
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+.input-group input,
+.input-group select{
+
+    height:60px;
+
+    padding:0 22px;
+
+    border-radius:18px;
+
+    border:2px solid rgba(214,11,42,.10);
+
+    background:#fff;
+
+    font-size:16px;
+
+    font-family:Inter,sans-serif;
+
+    transition:.25s ease;
+
+    outline:none;
+
+    box-sizing:border-box;
+
+}
+
+.input-group input:hover,
+.input-group select:hover{
+
+    border-color:rgba(214,11,42,.30);
+
+}
+
+.input-group input:focus,
+.input-group select:focus{
+
+    border-color:#D60B2A;
+
+    box-shadow:0 0 0 5px rgba(214,11,42,.10);
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================================
+   SELECT
+========================================================== */
+
+select{
+
+    cursor:pointer;
+
+}
+
+/* ==========================================================
+   UPLOAD
+========================================================== */
+
+.upload-box{
+
+    display:block;
+
+    cursor:pointer;
+
+    border:2px dashed rgba(214,11,42,.25);
+
+    border-radius:24px;
+
+    transition:.25s ease;
+
+}
+
+.upload-box:hover{
+
+    border-color:#D60B2A;
+
+    transform:translateY(-3px);
+
+}
+
+.upload-content{
+
+    padding:55px 35px;
+
+    text-align:center;
+
+}
+
+.upload-icon{
+
+    font-size:56px;
+
+    margin-bottom:18px;
+
+}
+
+.upload-content h3{
+
+    margin:0;
+
+    color:#D60B2A;
+
+    font-size:24px;
+
+}
+
+.upload-content p{
+
+    margin:14px 0;
+
+    color:#666;
+
+}
+
+.upload-content small{
+
+    color:#999;
+
+}
+
+.selected-file{
+
+    margin-top:25px;
+
+    font-weight:600;
+
+    color:#D60B2A;
+
+}
+
+/* ==========================================================
+   BUTTON
+========================================================== */
+
+#submitBtn{
+
+    width:100%;
+
+    height:64px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#D60B2A;
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    font-family:Inter,sans-serif;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+
+}
+
+#submitBtn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(214,11,42,.28);
+
+}
+
+#submitBtn:active{
+
+    transform:scale(.98);
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:768px){
+
+.payout-card{
+
+    padding:35px 25px;
+
+    border-radius:24px;
+
+}
+
+.page-header h1{
+
+    font-size:30px;
+
+}
+
+.two-column{
+
+    grid-template-columns:1fr;
+
+}
+
+.upload-content{
+
+    padding:40px 20px;
+
+}
+
+}
