@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creator Payout Portal</title>
+<link rel="stylesheet" href="css/global.css">
+<link rel="stylesheet" href="css/creator-payout.css">
+<script src="api/config.js"></script>
+<script src="api/service.js"></script>
+<script src="js/creator-payout.js" defer></script>
+</head><body><div class="page" data-route="creator-payout-portal">
+<div class="payout-card">
+<header class="page-header">
+<h1>Creator Payout Portal</h1>
+<p>
+                Submit your payout details securely. Payments are processed after invoice verification.
+            </p>
+<div class="security-banner">
+                🔒 Your financial information is securely processed and only used for payouts.
+            </div>
+</header>
+<form id="creatorPayoutForm">
+<!-- PERSONAL -->
+<section class="form-section">
+<h2>Personal Information</h2>
+<div class="grid two-column">
+<div class="input-group">
+<label for="fullName">Full Name</label>
+<input autocomplete="name" id="fullName" required="" type="text"/>
+<div class="error-message"></div>
+</div>
+<div class="input-group">
+<label for="phone">Phone Number</label>
+<input autocomplete="tel" id="phone" required="" type="tel"/>
+<div class="error-message"></div>
+</div>
+</div>
+<div class="input-group">
+<label for="email">Email Address</label>
+<input autocomplete="email" id="email" required="" type="email"/>
+<div class="error-message"></div>
+</div>
+</section>
+<!-- BANK -->
+<section class="form-section">
+<h2>Banking Details</h2>
+<div class="grid two-column">
+<div class="input-group">
+<label for="accountNumber">Account Number</label>
+<input id="accountNumber" required="" type="text"/>
+<div class="error-message"></div>
+</div>
+<div class="input-group">
+<label for="ifsc">IFSC Code</label>
+<input id="ifsc" required="" type="text"/>
+<div class="error-message"></div>
+</div>
+</div>
+<div class="input-group">
+<label for="branch">Branch Name</label>
+<input id="branch" required="" type="text"/>
+<div class="error-message"></div>
+</div>
+</section>
+<!-- TAX -->
+<section class="form-section">
+<h2>Tax Information</h2>
+<div class="grid two-column">
+<div class="input-group">
+<label for="pan">PAN Number</label>
+<input id="pan" required="" type="text"/>
+<div class="error-message"></div>
+</div>
+<div class="input-group">
+<label for="gst">GST Number (Optional)</label>
+<input id="gst" type="text"/>
+<div class="error-message"></div>
+</div>
+</div>
+</section>
+<!-- CAMPAIGN -->
+<section class="form-section">
+<h2>Campaign</h2>
+<div class="input-group">
+<label for="campaign">Campaign Name</label>
+<select id="campaign" required="">
+<option value="">
+                            Loading Campaigns...
+                        </option>
+</select>
+<div class="error-message"></div>
+</div>
+</section>
+<!-- INVOICE -->
+<section class="form-section">
+<h2>Upload Invoice</h2>
+<label class="upload-box" for="invoice">
+<div class="upload-content">
+<div class="upload-icon">📄</div>
+<h3>Drag &amp; Drop your Invoice</h3>
+<p>or click to browse</p>
+<small>PDF only • Max 10 MB</small>
+<div class="selected-file" id="selectedFile">
+</div>
+</div>
+<input accept="application/pdf" hidden="" id="invoice" type="file"/>
+<div class="error-message"></div>
+</label>
+</section>
+<button id="submitBtn" type="submit">
+
+                Submit Invoice
+
+            </button>
+</form>
+</div>
+</div></body></html>
