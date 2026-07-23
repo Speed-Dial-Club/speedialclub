@@ -30,13 +30,14 @@ async function apiGet(action) {
  * @returns {Promise<Object>}
  */
 async function apiPost(payload) {
+    const formData = new URLSearchParams();
+    Object.entries(payload).forEach(([key, value]) => {
+        formData.append(key, value);
+    });
 
     const response = await fetch(CONFIG.API.URL, {
-
         method: "POST",
-
-        body: JSON.stringify(payload)
-
+        body: formData
     });
 
     if (!response.ok) {
@@ -44,13 +45,10 @@ async function apiPost(payload) {
     }
 
     const result = await response.json();
-
     if (!result.success) {
         throw new Error(result.message || "Request failed.");
     }
-
     return result.data;
-
 }
 
 
