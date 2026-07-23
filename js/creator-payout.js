@@ -33,8 +33,17 @@ function bindEvents() {
         .getElementById("invoice")
         .addEventListener("change", handleFileSelection);
 
-}
+    const fields = form.querySelectorAll("input, select");
 
+    fields.forEach(field => {
+
+        field.addEventListener("input", () => validateField(field));
+
+        field.addEventListener("blur", () => validateField(field));
+
+    });
+
+}
 /* ==========================================================
    LOAD CAMPAIGNS
 ========================================================== */
