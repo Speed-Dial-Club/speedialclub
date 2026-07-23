@@ -339,7 +339,7 @@ if (!validateForm())
 
     document.getElementById("selectedFile").innerHTML = "";
 
-    window.location.hash = "#thank-you";
+    window.location.href = "thank-you.html";
 
 }
 
