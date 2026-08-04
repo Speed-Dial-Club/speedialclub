@@ -204,6 +204,20 @@ function validateField(field) {
                 return showError(field, "Select a campaign.");
 
             break;
+          
+          case "invoiceAmount":
+
+    if (
+        !value ||
+        isNaN(value) ||
+        Number(value) <= 0
+    )
+        return showError(
+            field,
+            "Enter a valid invoice amount."
+        );
+
+    break;
 
     }
 
@@ -295,6 +309,8 @@ async function getFormData() {
         gst: document.getElementById("gst").value.trim().toUpperCase(),
 
         campaign: document.getElementById("campaign").value,
+
+       amount: document.getElementById("invoiceAmount").value.trim(),
 
         pdf: await fileToBase64(file),
 
