@@ -1,0 +1,903 @@
+/* ==========================================================
+   SPEED DIAL CLUB
+   INVOICE GENERATOR
+========================================================== */
+
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    width:100%;
+    min-height:100vh;
+    margin:0;
+    background:#f5f6f8;
+    color:#111;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Helvetica,
+        Arial,
+        sans-serif;
+    overflow-x:hidden;
+}
+
+
+/* ==========================================================
+   UTILITIES
+========================================================== */
+
+.hidden{
+    display:none !important;
+}
+
+.optional{
+    font-size:11px;
+    font-weight:500;
+    color:#8a8f98;
+    margin-left:5px;
+}
+
+
+/* ==========================================================
+   FORM PAGE
+========================================================== */
+
+.invoice-generator-page{
+    min-height:100vh;
+    padding:60px 20px 80px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+.generator-card{
+    width:100%;
+    max-width:760px;
+    background:#fff;
+    border-radius:20px;
+    padding:44px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.08);
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.generator-header{
+    text-align:center;
+    margin-bottom:42px;
+}
+
+.brand-mark{
+    color:#D60B2A;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:0.16em;
+    margin-bottom:12px;
+}
+
+.generator-header h1{
+    font-size:34px;
+    line-height:1.1;
+    font-weight:750;
+    letter-spacing:-0.04em;
+}
+
+.generator-header p{
+    margin-top:10px;
+    color:#747983;
+    font-size:15px;
+}
+
+
+/* ==========================================================
+   FORM SECTIONS
+========================================================== */
+
+.form-section{
+    padding:30px 0;
+    border-top:1px solid #eceef1;
+}
+
+.form-section:first-of-type{
+    border-top:none;
+    padding-top:0;
+}
+
+.section-heading{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    margin-bottom:24px;
+}
+
+.section-number{
+    flex:0 0 auto;
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#D60B2A;
+    color:#fff;
+    font-size:12px;
+    font-weight:800;
+}
+
+.section-heading h2{
+    font-size:19px;
+    line-height:1.2;
+    font-weight:700;
+}
+
+.section-heading p{
+    margin-top:4px;
+    font-size:13px;
+    color:#858a93;
+}
+
+
+/* ==========================================================
+   FORM GRID
+========================================================== */
+
+.form-grid{
+    display:grid;
+    gap:18px;
+}
+
+.two-columns{
+    grid-template-columns:1fr 1fr;
+}
+
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.form-grid .input-group{
+    margin-bottom:0;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    color:#26292e;
+    font-size:13px;
+    font-weight:650;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+    width:100%;
+    border:1px solid #dfe2e6;
+    border-radius:11px;
+    background:#fff;
+    color:#16181c;
+    font-family:inherit;
+    font-size:15px;
+    outline:none;
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.input-group input,
+.input-group select{
+    height:48px;
+    padding:0 14px;
+}
+
+.input-group textarea{
+    min-height:92px;
+    padding:13px 14px;
+    resize:vertical;
+    line-height:1.45;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder{
+    color:#a0a5ad;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus{
+    border-color:#D60B2A;
+    box-shadow:
+        0 0 0 3px rgba(214,11,42,0.08);
+}
+
+.input-group select{
+    appearance:none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #777 50%),
+        linear-gradient(135deg, #777 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) 20px,
+        calc(100% - 13px) 20px;
+    background-size:
+        5px 5px,
+        5px 5px;
+    background-repeat:no-repeat;
+}
+
+
+/* ==========================================================
+   VALIDATION
+========================================================== */
+
+.input-error{
+    border-color:#D60B2A !important;
+    box-shadow:
+        0 0 0 3px rgba(214,11,42,0.08) !important;
+}
+
+.error-message{
+    display:none;
+    margin-top:6px;
+    color:#D60B2A;
+    font-size:12px;
+    line-height:1.3;
+}
+
+.error-message.show{
+    display:block;
+}
+
+
+/* ==========================================================
+   ACTIONS
+========================================================== */
+
+.form-actions{
+    padding-top:14px;
+}
+
+.primary-button,
+.secondary-button{
+    min-height:50px;
+    border-radius:11px;
+    padding:0 20px;
+    border:none;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        opacity .18s ease;
+}
+
+.primary-button{
+    background:#D60B2A;
+    color:#fff;
+    box-shadow:
+        0 8px 20px rgba(214,11,42,0.20);
+}
+
+.primary-button:hover{
+    transform:translateY(-1px);
+    box-shadow:
+        0 11px 26px rgba(214,11,42,0.26);
+}
+
+.primary-button:active{
+    transform:translateY(0);
+}
+
+.primary-button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.form-actions .primary-button{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    font-size:16px;
+}
+
+.form-actions .primary-button span{
+    font-size:21px;
+    line-height:1;
+}
+
+.secondary-button{
+    background:#fff;
+    color:#202228;
+    border:1px solid #dfe2e6;
+}
+
+.secondary-button:hover{
+    border-color:#c9cdd3;
+    background:#fafafa;
+}
+
+.privacy-note{
+    margin-top:16px;
+    text-align:center;
+    color:#989da5;
+    font-size:11px;
+}
+
+
+/* ==========================================================
+   PREVIEW PAGE
+========================================================== */
+
+.preview-page{
+    min-height:100vh;
+    padding:40px 20px 60px;
+    background:#f1f2f4;
+}
+
+.preview-header{
+    width:100%;
+    max-width:1000px;
+    margin:0 auto 30px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.preview-header h1{
+    margin-top:4px;
+    font-size:30px;
+    line-height:1.1;
+    letter-spacing:-0.04em;
+}
+
+.preview-header p{
+    margin-top:7px;
+    color:#747983;
+    font-size:14px;
+}
+
+.preview-actions{
+    display:flex;
+    gap:10px;
+}
+
+.preview-actions .primary-button,
+.preview-actions .secondary-button{
+    white-space:nowrap;
+}
+
+.desktop-actions{
+    display:flex;
+}
+
+.mobile-actions{
+    display:none;
+}
+
+.pdf-note{
+    margin:18px auto 0;
+    text-align:center;
+    color:#8b9098;
+    font-size:11px;
+}
+
+
+/* ==========================================================
+   MOBILE-SAFE INVOICE VIEWPORT
+========================================================== */
+
+.invoice-viewport{
+    width:100%;
+    max-width:1000px;
+    margin:0 auto;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+.invoice-scale-wrapper{
+    position:relative;
+    width:794px;
+    height:1123px;
+    flex:0 0 794px;
+}
+
+.invoice-paper{
+    position:absolute;
+    top:0;
+    left:0;
+    width:794px;
+    height:1123px;
+    background:#fff;
+    border:3px solid #111;
+    overflow:hidden;
+    transform-origin:top left;
+    color:#111;
+}
+
+
+/* ==========================================================
+   INVOICE RED BARS
+========================================================== */
+
+.invoice-red-bar{
+    width:100%;
+    height:27px;
+    background:#D60B2A;
+    border-bottom:3px solid #111;
+}
+
+.bottom-bar{
+    position:absolute;
+    left:0;
+    bottom:0;
+    border-top:3px solid #111;
+    border-bottom:none;
+}
+
+
+/* ==========================================================
+   INVOICE CONTENT
+========================================================== */
+
+.invoice-content{
+    position:relative;
+    width:100%;
+    height:calc(100% - 54px);
+    padding:72px 74px 50px;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Text",
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+
+/* ==========================================================
+   INVOICE HEADER
+========================================================== */
+
+.invoice-header h2{
+    font-size:47px;
+    line-height:1;
+    font-weight:800;
+    letter-spacing:-0.035em;
+    margin-bottom:27px;
+}
+
+.invoice-meta{
+    font-size:17px;
+    line-height:1.8;
+    letter-spacing:0.005em;
+}
+
+.invoice-meta span{
+    margin-left:2px;
+}
+
+
+/* ==========================================================
+   BILL TO
+========================================================== */
+
+.bill-to{
+    margin-top:49px;
+    font-size:16px;
+    line-height:1.5;
+    max-width:650px;
+}
+
+.bill-to h3{
+    font-size:17px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.bill-to > strong{
+    display:block;
+    font-size:17px;
+    margin-bottom:2px;
+}
+
+.bill-to strong{
+    font-weight:800;
+}
+
+
+/* ==========================================================
+   ITEM TABLE
+========================================================== */
+
+.invoice-table-wrapper{
+    margin-top:36px;
+}
+
+.invoice-table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    font-size:15px;
+}
+
+.invoice-table th,
+.invoice-table td{
+    border:1px solid #222;
+    padding:0 12px;
+}
+
+.invoice-table th{
+    height:47px;
+    font-size:15px;
+    font-weight:750;
+    text-align:center;
+}
+
+.invoice-table td{
+    height:61px;
+    vertical-align:middle;
+}
+
+.description-column{
+    width:54%;
+    text-align:left !important;
+}
+
+.price-column{
+    width:21%;
+}
+
+.qty-column{
+    width:9%;
+}
+
+.amount-column{
+    width:16%;
+}
+
+.invoice-table td:first-child{
+    text-align:left;
+}
+
+.invoice-table td:not(:first-child){
+    text-align:right;
+}
+
+.invoice-table td:nth-child(3){
+    text-align:center;
+}
+
+.currency{
+    margin-right:7px;
+}
+
+
+/* ==========================================================
+   TOTAL
+========================================================== */
+
+.invoice-total{
+    width:300px;
+    height:64px;
+    margin-top:61px;
+    margin-left:auto;
+    display:grid;
+    grid-template-columns:1fr 145px;
+    border:1px solid #222;
+}
+
+.total-label,
+.total-value{
+    display:flex;
+    align-items:center;
+    height:100%;
+    padding:0 14px;
+    font-size:16px;
+}
+
+.total-label{
+    border-right:1px solid #222;
+    font-weight:800;
+}
+
+.total-value{
+    justify-content:flex-end;
+    gap:8px;
+    font-weight:700;
+}
+
+
+/* ==========================================================
+   BOTTOM INFORMATION
+========================================================== */
+
+.invoice-bottom{
+    position:absolute;
+    left:74px;
+    right:74px;
+    bottom:70px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:72px;
+}
+
+.payment-details,
+.creator-details{
+    font-size:15px;
+    line-height:1.7;
+}
+
+.payment-details h3,
+.creator-details h3{
+    margin-bottom:12px;
+    font-size:17px;
+    line-height:1.2;
+    font-weight:800;
+}
+
+.payment-details > div{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    column-gap:5px;
+}
+
+.payment-details strong{
+    font-weight:600;
+}
+
+.creator-details h3{
+    text-transform:uppercase;
+    word-break:break-word;
+}
+
+.creator-line{
+    display:flex;
+    align-items:flex-start;
+    gap:5px;
+}
+
+.creator-line strong{
+    flex:0 0 auto;
+    font-weight:500;
+}
+
+.creator-line span{
+    min-width:0;
+    overflow-wrap:anywhere;
+}
+
+
+/* ==========================================================
+   RESPONSIVE FORM
+========================================================== */
+
+@media (max-width:700px){
+
+    .invoice-generator-page{
+        padding:25px 12px 50px;
+    }
+
+    .generator-card{
+        padding:28px 18px;
+        border-radius:16px;
+    }
+
+    .generator-header{
+        margin-bottom:32px;
+    }
+
+    .generator-header h1{
+        font-size:29px;
+    }
+
+    .two-columns{
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+        gap:0;
+    }
+
+    .form-section{
+        padding:25px 0;
+    }
+
+    .section-heading{
+        margin-bottom:20px;
+    }
+
+    .input-group{
+        margin-bottom:17px;
+    }
+
+    .input-group input,
+    .input-group select{
+        height:50px;
+        font-size:16px;
+    }
+
+    .input-group textarea{
+        font-size:16px;
+    }
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE PREVIEW
+========================================================== */
+
+@media (max-width:700px){
+
+    .preview-page{
+        padding:25px 0 45px;
+    }
+
+    .preview-header{
+        display:block;
+        padding:0 16px;
+        margin-bottom:22px;
+    }
+
+    .preview-header h1{
+        font-size:27px;
+    }
+
+    .preview-header p{
+        font-size:13px;
+    }
+
+    .desktop-actions{
+        display:none;
+    }
+
+    .mobile-actions{
+        display:flex;
+        flex-direction:column;
+        padding:0 16px;
+        margin-top:18px;
+    }
+
+    .mobile-actions button{
+        width:100%;
+    }
+
+    .invoice-viewport{
+        width:100vw;
+    }
+
+    .pdf-note{
+        padding:0 16px;
+        line-height:1.5;
+    }
+
+}
+
+
+/* ==========================================================
+   VERY SMALL PHONES
+========================================================== */
+
+@media (max-width:360px){
+
+    .generator-card{
+        padding:24px 15px;
+    }
+
+    .generator-header h1{
+        font-size:26px;
+    }
+
+    .preview-header{
+        padding:0 13px;
+    }
+
+    .mobile-actions{
+        padding:0 13px;
+    }
+
+}
+
+
+/* ==========================================================
+   PRINT
+========================================================== */
+
+@media print{
+
+    @page{
+        size:A4 portrait;
+        margin:0;
+    }
+
+    html,
+    body{
+        width:210mm;
+        height:297mm;
+        margin:0 !important;
+        padding:0 !important;
+        background:#fff !important;
+    }
+
+    body{
+        overflow:visible !important;
+    }
+
+    .preview-page{
+        display:block !important;
+        width:210mm !important;
+        min-height:297mm !important;
+        padding:0 !important;
+        margin:0 !important;
+        background:#fff !important;
+    }
+
+    .preview-header,
+    .mobile-actions,
+    .pdf-note{
+        display:none !important;
+    }
+
+    .invoice-viewport{
+        width:210mm !important;
+        max-width:none !important;
+        height:297mm !important;
+        margin:0 !important;
+        overflow:visible !important;
+        display:block !important;
+    }
+
+    .invoice-scale-wrapper{
+        width:794px !important;
+        height:1123px !important;
+        transform:none !important;
+        margin:0 !important;
+    }
+
+    .invoice-paper{
+        transform:none !important;
+    }
+
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+        scroll-behavior:auto !important;
+        transition:none !important;
+    }
+
+}
