@@ -30,12 +30,6 @@ const invoiceForm =
 const invoiceItem =
     document.getElementById("invoiceItem");
 
-const customItemWrapper =
-    document.getElementById("customItemWrapper");
-
-const customItem =
-    document.getElementById("customItem");
-
 const invoicePaper =
     document.getElementById("invoicePaper");
 
@@ -62,10 +56,6 @@ const downloadBtnTop =
 
 
 /* ==========================================================
-   INITIALISE DATE
-========================================================== */
-
-/* ==========================================================
    DATE INPUT
 ========================================================== */
 
@@ -78,8 +68,9 @@ const invoiceDateDisplay =
 
 function formatDisplayDate(dateString){
 
-    if (!dateString)
+    if (!dateString){
         return "";
+    }
 
     const date =
         new Date(
@@ -94,11 +85,14 @@ function formatDisplayDate(dateString){
             year:"numeric"
         }
     );
-
 }
 
 
 function setToday(){
+
+    if (!invoiceDate){
+        return;
+    }
 
     const today =
         new Date();
@@ -122,44 +116,64 @@ function setToday(){
     invoiceDate.value =
         value;
 
-    invoiceDateDisplay.value =
-        formatDisplayDate(value);
+    if (invoiceDateDisplay){
 
+        invoiceDateDisplay.value =
+            formatDisplayDate(value);
+
+    }
 }
 
 
 setToday();
 
 
-/*
-   Keep the pretty visible field in sync
-   with the actual date picker.
-*/
+if (invoiceDate){
 
-invoiceDate.addEventListener(
-    "change",
-    () => {
+    invoiceDate.addEventListener(
+        "change",
+        () => {
 
-        invoiceDateDisplay.value =
-            formatDisplayDate(
-                invoiceDate.value
-            );
+            if (invoiceDateDisplay){
 
-        clearError(invoiceDate);
+                invoiceDateDisplay.value =
+                    formatDisplayDate(
+                        invoiceDate.value
+                    );
 
-    }
-);
+            }
 
-invoiceDateDisplay.addEventListener(
-    "click",
-    () => {
+            clearError(invoiceDate);
 
-        invoiceDate.showPicker
-            ? invoiceDate.showPicker()
-            : invoiceDate.click();
+        }
+    );
 
-    }
-);
+}
+
+
+if (invoiceDateDisplay){
+
+    invoiceDateDisplay.addEventListener(
+        "click",
+        () => {
+
+            if (
+                typeof invoiceDate.showPicker ===
+                "function"
+            ){
+
+                invoiceDate.showPicker();
+
+            }else{
+
+                invoiceDate.click();
+
+            }
+
+        }
+    );
+
+}
 
 
 /* ==========================================================
@@ -179,7 +193,7 @@ function generateInvoiceNumber(){
 
 
 /* ==========================================================
-   FORMAT MONEY
+   MONEY
 ========================================================== */
 
 function formatMoney(value){
@@ -194,13 +208,14 @@ function formatMoney(value){
 
 
 /* ==========================================================
-   FORMAT DATE
+   DATE FOR INVOICE
 ========================================================== */
 
 function formatDate(dateString){
 
-    if (!dateString)
+    if (!dateString){
         return "";
+    }
 
     const date =
         new Date(
@@ -219,81 +234,79 @@ function formatDate(dateString){
 
 
 /* ==========================================================
-   SHOW / CLEAR ERROR
+   ERROR HANDLING
 ========================================================== */
 
-function showError(field, message){
+function showError(
+    field,
+    message
+){
 
-    field.classList.add("input-error");
+    field.classList.add(
+        "input-error"
+    );
 
     const wrapper =
-        field.closest(".input-group");
+        field.closest(
+            ".input-group"
+        );
 
-    if (!wrapper)
+    if (!wrapper){
         return;
+    }
 
     const error =
-        wrapper.querySelector(".error-message");
+        wrapper.querySelector(
+            ".error-message"
+        );
 
-    if (!error)
+    if (!error){
         return;
+    }
 
     error.textContent =
         message;
 
-    error.classList.add("show");
+    error.classList.add(
+        "show"
+    );
 }
 
 
 function clearError(field){
 
-    field.classList.remove("input-error");
+    field.classList.remove(
+        "input-error"
+    );
 
     const wrapper =
-        field.closest(".input-group");
+        field.closest(
+            ".input-group"
+        );
 
-    if (!wrapper)
+    if (!wrapper){
         return;
+    }
 
     const error =
-        wrapper.querySelector(".error-message");
+        wrapper.querySelector(
+            ".error-message"
+        );
 
-    if (!error)
+    if (!error){
         return;
+    }
 
     error.textContent = "";
 
-    error.classList.remove("show");
+    error.classList.remove(
+        "show"
+    );
 }
 
 
 /* ==========================================================
-   VALIDATION HELPERS
-========================================================== */
-
-function validateRequired(
-    field,
-    message
-){
-
-    if (!field.value.trim()){
-
-        showError(
-            field,
-            message
-        );
-
-        return false;
-    }
-
-    clearError(field);
-
-    return true;
-}
-
-
-/* ==========================================================
-   FIELD VALIDATION
+   VALIDATION
 ========================================================== */
 
 function validateField(field){
@@ -314,6 +327,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -329,24 +343,7 @@ function validateField(field){
                 );
 
                 return false;
-            }
 
-            break;
-
-
-        case "customItem":
-
-            if (
-                invoiceItem.value === "Other" &&
-                !value
-            ){
-
-                showError(
-                    field,
-                    "Please enter the item description."
-                );
-
-                return false;
             }
 
             break;
@@ -369,9 +366,11 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
+
         }
 
 
@@ -392,9 +391,11 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
+
         }
 
 
@@ -408,6 +409,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -423,6 +425,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -430,52 +433,62 @@ function validateField(field){
 
         case "creatorPhone":
 
-    if (!value){
+            if (!value){
 
-        showError(
-            field,
-            "Mobile number is required."
-        );
+                showError(
+                    field,
+                    "Mobile number is required."
+                );
 
-        return false;
-    }
+                return false;
 
-    if (!/^[6-9]\d{9}$/.test(value)){
+            }
 
-        showError(
-            field,
-            "Enter a valid 10-digit Indian mobile number."
-        );
+            if (
+                !/^[6-9]\d{9}$/.test(value)
+            ){
 
-        return false;
-    }
+                showError(
+                    field,
+                    "Enter a valid 10-digit Indian mobile number."
+                );
 
-    break;
+                return false;
+
+            }
+
+            break;
 
 
         case "creatorEmail":
 
-    if (!value){
+            if (!value){
 
-        showError(
-            field,
-            "Email address is required."
-        );
+                showError(
+                    field,
+                    "Email address is required."
+                );
 
-        return false;
-    }
+                return false;
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){
+            }
 
-        showError(
-            field,
-            "Enter a valid email address."
-        );
+            if (
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                    value
+                )
+            ){
 
-        return false;
-    }
+                showError(
+                    field,
+                    "Enter a valid email address."
+                );
 
-    break;
+                return false;
+
+            }
+
+            break;
 
 
         case "bankName":
@@ -488,6 +501,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -503,6 +517,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -520,6 +535,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -539,6 +555,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -554,6 +571,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -573,6 +591,7 @@ function validateField(field){
                 );
 
                 return false;
+
             }
 
             break;
@@ -586,14 +605,9 @@ function validateField(field){
 }
 
 
-/* ==========================================================
-   VALIDATE ENTIRE FORM
-========================================================== */
-
 function validateForm(){
 
     let valid = true;
-
 
     const fields =
         invoiceForm.querySelectorAll(
@@ -603,17 +617,25 @@ function validateForm(){
 
     fields.forEach(field => {
 
+        /*
+           The visible date display field is not
+           itself the actual form field.
+        */
+
         if (
-            field.id === "customItem" &&
-            invoiceItem.value !== "Other"
+            field.id ===
+            "invoiceDateDisplay"
         ){
             return;
         }
 
+
         if (
             !validateField(field)
         ){
+
             valid = false;
+
         }
 
     });
@@ -624,39 +646,7 @@ function validateForm(){
 
 
 /* ==========================================================
-   CUSTOM ITEM DROPDOWN
-========================================================== */
-
-invoiceItem.addEventListener(
-    "change",
-    () => {
-
-        if (
-            invoiceItem.value === "Other"
-        ){
-
-            customItemWrapper
-                .classList.remove("hidden");
-
-            customItem.focus();
-
-        }else{
-
-            customItemWrapper
-                .classList.add("hidden");
-
-            customItem.value = "";
-
-            clearError(customItem);
-
-        }
-
-    }
-);
-
-
-/* ==========================================================
-   NORMALISE INPUT
+   INPUT NORMALISATION
 ========================================================== */
 
 document
@@ -719,7 +709,7 @@ document
 
 
 /* ==========================================================
-   CLEAR ERRORS WHEN USER TYPES
+   CLEAR ERRORS AS USER TYPES
 ========================================================== */
 
 invoiceForm
@@ -750,16 +740,10 @@ invoiceForm
 
 
 /* ==========================================================
-   GET FORM DATA
+   FORM DATA
 ========================================================== */
 
 function getFormData(){
-
-    const item =
-        invoiceItem.value === "Other"
-            ? customItem.value.trim()
-            : invoiceItem.value;
-
 
     return {
 
@@ -768,82 +752,109 @@ function getFormData(){
 
         invoiceDate:
             document
-                .getElementById("invoiceDate")
+                .getElementById(
+                    "invoiceDate"
+                )
                 .value,
 
-        item,
+        item:
+            invoiceItem.value,
 
         unitPrice:
             Number(
                 document
-                    .getElementById("unitPrice")
+                    .getElementById(
+                        "unitPrice"
+                    )
                     .value
             ),
 
         quantity:
             Number(
                 document
-                    .getElementById("quantity")
+                    .getElementById(
+                        "quantity"
+                    )
                     .value
             ),
 
         creatorName:
             document
-                .getElementById("creatorName")
+                .getElementById(
+                    "creatorName"
+                )
                 .value
                 .trim(),
 
         creatorAddress:
             document
-                .getElementById("creatorAddress")
+                .getElementById(
+                    "creatorAddress"
+                )
                 .value
                 .trim(),
 
         creatorPhone:
             document
-                .getElementById("creatorPhone")
+                .getElementById(
+                    "creatorPhone"
+                )
                 .value
                 .trim(),
 
         creatorEmail:
             document
-                .getElementById("creatorEmail")
+                .getElementById(
+                    "creatorEmail"
+                )
                 .value
                 .trim(),
 
         bankName:
             document
-                .getElementById("bankName")
+                .getElementById(
+                    "bankName"
+                )
                 .value
                 .trim(),
 
         accountName:
             document
-                .getElementById("accountName")
+                .getElementById(
+                    "accountName"
+                )
                 .value
                 .trim(),
 
         accountNumber:
             document
-                .getElementById("accountNumber")
+                .getElementById(
+                    "accountNumber"
+                )
                 .value
                 .trim(),
 
         ifsc:
             document
-                .getElementById("ifsc")
+                .getElementById(
+                    "ifsc"
+                )
                 .value
                 .trim()
                 .toUpperCase(),
 
         accountType:
             document
-                .getElementById("accountType")
+                .getElementById(
+                    "accountType"
+                )
                 .value,
 
         pan:
             document
-                .getElementById("pan")
+                .getElementById(
+                    "pan"
+                )
                 .value
                 .trim()
                 .toUpperCase()
@@ -865,159 +876,227 @@ function populatePreview(data){
 
 
     document
-        .getElementById("previewInvoiceNumber")
+        .getElementById(
+            "previewInvoiceNumber"
+        )
         .textContent =
         data.invoiceNumber;
 
 
     document
-        .getElementById("previewInvoiceDate")
+        .getElementById(
+            "previewInvoiceDate"
+        )
         .textContent =
-        formatDate(data.invoiceDate);
+        formatDate(
+            data.invoiceDate
+        );
 
 
     document
-        .getElementById("previewItem")
+        .getElementById(
+            "previewItem"
+        )
         .textContent =
         data.item;
 
 
     document
-        .getElementById("previewUnitPrice")
+        .getElementById(
+            "previewUnitPrice"
+        )
         .textContent =
-        formatMoney(data.unitPrice);
+        formatMoney(
+            data.unitPrice
+        );
 
 
     document
-        .getElementById("previewQuantity")
+        .getElementById(
+            "previewQuantity"
+        )
         .textContent =
         data.quantity;
 
 
     document
-        .getElementById("previewAmount")
+        .getElementById(
+            "previewAmount"
+        )
         .textContent =
-        formatMoney(total);
+        formatMoney(
+            total
+        );
 
 
     document
-        .getElementById("previewTotal")
+        .getElementById(
+            "previewTotal"
+        )
         .textContent =
-        formatMoney(total);
+        formatMoney(
+            total
+        );
 
 
     document
-        .getElementById("previewBank")
+        .getElementById(
+            "previewBank"
+        )
         .textContent =
         data.bankName;
 
 
     document
-        .getElementById("previewAccountName")
+        .getElementById(
+            "previewAccountName"
+        )
         .textContent =
         data.accountName;
 
 
     document
-        .getElementById("previewAccountNumber")
+        .getElementById(
+            "previewAccountNumber"
+        )
         .textContent =
         data.accountNumber;
 
 
     document
-        .getElementById("previewIfsc")
+        .getElementById(
+            "previewIfsc"
+        )
         .textContent =
         data.ifsc;
 
 
     document
-        .getElementById("previewAccountType")
+        .getElementById(
+            "previewAccountType"
+        )
         .textContent =
         data.accountType;
 
 
     document
-        .getElementById("previewPan")
+        .getElementById(
+            "previewPan"
+        )
         .textContent =
         data.pan;
 
 
     document
-        .getElementById("previewCreatorName")
+        .getElementById(
+            "previewCreatorName"
+        )
         .textContent =
         data.creatorName;
 
 
     document
-        .getElementById("previewCreatorAddress")
+        .getElementById(
+            "previewCreatorAddress"
+        )
         .textContent =
         data.creatorAddress;
 
 
     document
-        .getElementById("previewCreatorPhone")
+        .getElementById(
+            "previewCreatorPhone"
+        )
         .textContent =
-        data.creatorPhone || "—";
+        data.creatorPhone;
 
 
     document
-        .getElementById("previewCreatorEmail")
+        .getElementById(
+            "previewCreatorEmail"
+        )
         .textContent =
-        data.creatorEmail || "—";
+        data.creatorEmail;
 
 }
 
 
 /* ==========================================================
-   MOBILE PREVIEW SCALING
+   PERMANENT MOBILE PREVIEW SCALING
 ========================================================== */
 
 /*
-   The invoice itself is always 794 × 1123.
+   IMPORTANT:
 
-   On desktop:
-       scale = 1
+   There is ONLY ONE scaling function.
 
-   On mobile:
-       scale = available width / 794
+   The live invoice is always reset before
+   calculating its scale.
 
-   This means the actual invoice layout never changes.
-   It simply becomes smaller as one complete A4 sheet.
+   This prevents the scaling state from carrying
+   over after Download / Edit / Generate.
 */
 
 function scaleInvoicePreview(){
 
     if (
-        previewPage.classList.contains("hidden")
+        previewPage.classList.contains(
+            "hidden"
+        )
     ){
+
+        return;
+
+    }
+
+
+    /*
+       Always start from the original invoice
+       dimensions.
+    */
+
+    invoicePaper.style.transform =
+        "none";
+
+
+    invoiceScaleWrapper.style.width =
+        `${INVOICE_WIDTH}px`;
+
+    invoiceScaleWrapper.style.height =
+        `${INVOICE_HEIGHT}px`;
+
+
+    /*
+       Force the browser to recalculate the
+       visible viewport before measuring it.
+    */
+
+    const viewportWidth =
+        invoiceViewport.clientWidth;
+
+
+    if (!viewportWidth){
         return;
     }
 
 
+    /*
+       On desktop, use the natural invoice size.
+       On mobile/tablet, scale it to fit.
+    */
+
     const availableWidth =
-        Math.min(
-            window.innerWidth,
-            invoiceViewport.clientWidth
-        );
-
-
-    const horizontalPadding =
-        window.innerWidth <= 700
-            ? 0
-            : 20;
-
-
-    const targetWidth =
-        Math.min(
-            INVOICE_WIDTH,
-            availableWidth - horizontalPadding
+        Math.max(
+            viewportWidth - 24,
+            280
         );
 
 
     const scale =
         Math.min(
             1,
-            targetWidth / INVOICE_WIDTH
+            availableWidth /
+            INVOICE_WIDTH
         );
 
 
@@ -1028,7 +1107,6 @@ function scaleInvoicePreview(){
     invoiceScaleWrapper.style.width =
         `${INVOICE_WIDTH * scale}px`;
 
-
     invoiceScaleWrapper.style.height =
         `${INVOICE_HEIGHT * scale}px`;
 
@@ -1036,29 +1114,73 @@ function scaleInvoicePreview(){
 
 
 /* ==========================================================
-   RESIZE HANDLING
+   OPEN PREVIEW
 ========================================================== */
 
-let resizeTimer;
+function showPreview(){
 
-window.addEventListener(
-    "resize",
-    () => {
+    /*
+       Reset any stale state from a previous
+       preview.
+    */
 
-        clearTimeout(resizeTimer);
+    invoicePaper.style.transform =
+        "none";
 
-        resizeTimer =
-            setTimeout(
-                scaleInvoicePreview,
-                50
+
+    invoiceScaleWrapper.style.width =
+        `${INVOICE_WIDTH}px`;
+
+    invoiceScaleWrapper.style.height =
+        `${INVOICE_HEIGHT}px`;
+
+
+    /*
+       Show the preview FIRST.
+
+       This is critical because a hidden element
+       cannot be measured reliably.
+    */
+
+    formPage.classList.add(
+        "hidden"
+    );
+
+    previewPage.classList.remove(
+        "hidden"
+    );
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
+    });
+
+
+    /*
+       Wait until Safari has actually laid out
+       the visible preview.
+    */
+
+    requestAnimationFrame(
+        () => {
+
+            requestAnimationFrame(
+                () => {
+
+                    scaleInvoicePreview();
+
+                }
             );
 
-    }
-);
+        }
+    );
+
+}
 
 
 /* ==========================================================
-   SHOW PREVIEW
+   GENERATE INVOICE
 ========================================================== */
 
 invoiceForm.addEventListener(
@@ -1075,6 +1197,7 @@ invoiceForm.addEventListener(
                     ".input-error"
                 );
 
+
             if (firstError){
 
                 firstError.scrollIntoView({
@@ -1082,14 +1205,20 @@ invoiceForm.addEventListener(
                     block:"center"
                 });
 
+
                 setTimeout(
-                    () => firstError.focus(),
+                    () => {
+
+                        firstError.focus();
+
+                    },
                     300
                 );
 
             }
 
             return;
+
         }
 
 
@@ -1100,28 +1229,7 @@ invoiceForm.addEventListener(
         populatePreview(data);
 
 
-        formPage.classList.add(
-            "hidden"
-        );
-
-        previewPage.classList.remove(
-            "hidden"
-        );
-
-
-        window.scrollTo({
-            top:0,
-            behavior:"instant"
-        });
-
-
-        requestAnimationFrame(
-            () => {
-
-                scaleInvoicePreview();
-
-            }
-        );
+        showPreview();
 
     }
 );
@@ -1133,6 +1241,25 @@ invoiceForm.addEventListener(
 
 function editDetails(){
 
+    /*
+       Completely reset the preview before
+       hiding it.
+
+       This means no scaled transform can
+       survive into the next generation.
+    */
+
+    invoicePaper.style.transform =
+        "none";
+
+
+    invoiceScaleWrapper.style.width =
+        `${INVOICE_WIDTH}px`;
+
+    invoiceScaleWrapper.style.height =
+        `${INVOICE_HEIGHT}px`;
+
+
     previewPage.classList.add(
         "hidden"
     );
@@ -1140,6 +1267,7 @@ function editDetails(){
     formPage.classList.remove(
         "hidden"
     );
+
 
     window.scrollTo({
         top:0,
@@ -1162,14 +1290,27 @@ editBtnTop.addEventListener(
 
 
 /* ==========================================================
-   PDF DOWNLOAD
+   PDF GENERATION
 ========================================================== */
+
+/*
+   IMPORTANT:
+
+   We NEVER resize or transform the live invoice
+   while creating the PDF.
+
+   Instead, we clone it.
+
+   This is the permanent fix for the iPhone bug.
+*/
 
 async function downloadInvoice(){
 
     if (
-        typeof html2canvas === "undefined" ||
-        typeof window.jspdf === "undefined"
+        typeof html2canvas ===
+        "undefined" ||
+        typeof window.jspdf ===
+        "undefined"
     ){
 
         alert(
@@ -1177,49 +1318,87 @@ async function downloadInvoice(){
         );
 
         return;
+
     }
 
 
-    const originalText =
-        downloadBtn.textContent;
+    const buttons = [
+        downloadBtn,
+        downloadBtnTop
+    ];
 
 
-    downloadBtn.disabled =
-        true;
+    buttons.forEach(
+        button => {
 
-    downloadBtn.textContent =
-        "Preparing PDF…";
+            button.disabled =
+                true;
+
+            button.textContent =
+                "Preparing PDF…";
+
+        }
+    );
 
 
-    downloadBtnTop.disabled =
-        true;
-
-    downloadBtnTop.textContent =
-        "Preparing PDF…";
+    let pdfClone = null;
 
 
     try{
 
         /*
-           Temporarily remove the mobile scale.
-
-           This is critical.
-
-           The preview can be tiny on a phone,
-           but the PDF must always render from
-           the original 794 × 1123 invoice.
+           Create an isolated copy of the invoice.
         */
 
-        invoicePaper.style.transform =
-            "none";
+        pdfClone =
+            invoicePaper.cloneNode(
+                true
+            );
 
 
-        invoiceScaleWrapper.style.width =
+        /*
+           The clone lives outside the visible
+           page and is always rendered at the
+           original 794 × 1123 dimensions.
+        */
+
+        pdfClone.style.position =
+            "fixed";
+
+        pdfClone.style.left =
+            "-10000px";
+
+        pdfClone.style.top =
+            "0";
+
+        pdfClone.style.width =
             `${INVOICE_WIDTH}px`;
 
-        invoiceScaleWrapper.style.height =
+        pdfClone.style.height =
             `${INVOICE_HEIGHT}px`;
 
+        pdfClone.style.transform =
+            "none";
+
+        pdfClone.style.transformOrigin =
+            "top left";
+
+        pdfClone.style.margin =
+            "0";
+
+        pdfClone.style.zIndex =
+            "-9999";
+
+
+        document.body.appendChild(
+            pdfClone
+        );
+
+
+        /*
+           Give the browser time to paint the
+           isolated clone before capturing it.
+        */
 
         await new Promise(
             resolve =>
@@ -1234,15 +1413,27 @@ async function downloadInvoice(){
 
         const canvas =
             await html2canvas(
-                invoicePaper,
+                pdfClone,
                 {
                     scale:3,
+
                     useCORS:true,
-                    backgroundColor:"#ffffff",
-                    width:INVOICE_WIDTH,
-                    height:INVOICE_HEIGHT,
-                    windowWidth:INVOICE_WIDTH,
-                    windowHeight:INVOICE_HEIGHT,
+
+                    backgroundColor:
+                        "#ffffff",
+
+                    width:
+                        INVOICE_WIDTH,
+
+                    height:
+                        INVOICE_HEIGHT,
+
+                    windowWidth:
+                        INVOICE_WIDTH,
+
+                    windowHeight:
+                        INVOICE_HEIGHT,
+
                     logging:false
                 }
             );
@@ -1250,15 +1441,23 @@ async function downloadInvoice(){
 
         const {
             jsPDF
-        } = window.jspdf;
+        } =
+            window.jspdf;
 
 
         const pdf =
             new jsPDF({
-                orientation:"portrait",
-                unit:"mm",
-                format:"a4",
-                compress:true
+                orientation:
+                    "portrait",
+
+                unit:
+                    "mm",
+
+                format:
+                    "a4",
+
+                compress:
+                    true
             });
 
 
@@ -1302,6 +1501,7 @@ async function downloadInvoice(){
             error
         );
 
+
         alert(
             "We couldn't generate the PDF. Please try again."
         );
@@ -1309,21 +1509,50 @@ async function downloadInvoice(){
 
     }finally{
 
-        scaleInvoicePreview();
+        /*
+           Remove ONLY the temporary PDF clone.
+
+           The actual visible invoice has never
+           been touched.
+        */
+
+        if (
+            pdfClone &&
+            pdfClone.parentNode
+        ){
+
+            pdfClone.parentNode.removeChild(
+                pdfClone
+            );
+
+        }
 
 
-        downloadBtn.disabled =
-            false;
+        buttons.forEach(
+            button => {
 
-        downloadBtn.textContent =
-            originalText;
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    button === downloadBtn
+                        ? "Download Invoice PDF ↓"
+                        : "Download PDF";
+
+            }
+        );
 
 
-        downloadBtnTop.disabled =
-            false;
+        /*
+           Recalculate the visible invoice anyway.
 
-        downloadBtnTop.textContent =
-            "Download PDF";
+           This handles Safari viewport changes
+           caused by its browser UI.
+        */
+
+        requestAnimationFrame(
+            scaleInvoicePreview
+        );
 
     }
 
@@ -1339,85 +1568,89 @@ downloadBtn.addEventListener(
     downloadInvoice
 );
 
-
 downloadBtnTop.addEventListener(
     "click",
     downloadInvoice
 );
 
+
 /* ==========================================================
-   MOBILE INVOICE SCALING
+   RESPONSIVE VIEWPORT CHANGES
 ========================================================== */
 
-function scaleInvoicePreview(){
+let resizeTimer = null;
 
-    const wrapper = document.querySelector(
-        ".invoice-scale-wrapper"
+
+function handleViewportChange(){
+
+    clearTimeout(
+        resizeTimer
     );
 
-    if (!wrapper) return;
 
-    const viewport = document.querySelector(
-        ".invoice-viewport"
-    );
+    resizeTimer =
+        setTimeout(
+            () => {
 
-    if (!viewport) return;
+                scaleInvoicePreview();
 
-    const invoiceWidth = 794;
+            },
+            100
+        );
 
-    const availableWidth =
-        viewport.clientWidth;
-
-    let scale =
-        availableWidth / invoiceWidth;
-
-    /*
-       Never enlarge the invoice beyond its natural
-       desktop size.
-    */
-    scale = Math.min(scale, 1);
-
-    /*
-       Keep a tiny safety margin so Safari doesn't
-       create fractional-pixel overflow.
-    */
-    scale = Math.max(scale - 0.005, 0.1);
-
-    wrapper.style.setProperty(
-        "--invoice-scale",
-        scale
-    );
 }
 
 
-/*
-   Run after the page has rendered.
-*/
-window.addEventListener(
-    "load",
-    scaleInvoicePreview
-);
-
-
-/*
-   Recalculate when the device rotates
-   or the viewport changes.
-*/
 window.addEventListener(
     "resize",
-    scaleInvoicePreview
+    handleViewportChange
 );
 
 
-/*
-   iOS Safari can change the visual viewport
-   after the browser UI appears/disappears.
-*/
 if (window.visualViewport){
 
     window.visualViewport.addEventListener(
         "resize",
-        scaleInvoicePreview
+        handleViewportChange
     );
 
 }
+
+
+/* ==========================================================
+   ORIENTATION CHANGE
+========================================================== */
+
+window.addEventListener(
+    "orientationchange",
+    () => {
+
+        setTimeout(
+            scaleInvoicePreview,
+            250
+        );
+
+    }
+);
+
+
+/* ==========================================================
+   PAGE LOAD
+========================================================== */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        if (
+            !previewPage.classList.contains(
+                "hidden"
+            )
+        ){
+
+            scaleInvoicePreview();
+
+        }
+
+    }
+);
