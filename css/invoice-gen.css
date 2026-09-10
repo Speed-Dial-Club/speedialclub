@@ -606,7 +606,12 @@ body{
     width:100%;
 
     border-collapse:collapse;
-    table-layout:fixed;
+
+    /*
+       Allow the browser to calculate column widths
+       based on their actual content.
+    */
+    table-layout:auto;
 
     font-size:15px;
 }
@@ -624,6 +629,8 @@ body{
     font-weight:750;
 
     text-align:center;
+
+    white-space:nowrap;
 }
 
 .invoice-table td{
@@ -632,36 +639,68 @@ body{
 }
 
 .description-column{
-    width:54%;
+    width:52%;
     text-align:left !important;
 }
 
 .price-column{
-    width:21%;
-}
-
-.qty-column{
-    width:9%;
-}
-
-.amount-column{
-    width:16%;
-}
-
-.invoice-table td:first-child{
-    text-align:left;
-}
-
-.invoice-table td:not(:first-child){
-    text-align:right;
-}
-
-.invoice-table td:nth-child(3){
     text-align:center;
 }
 
+.qty-column{
+    width:8%;
+}
+
+.amount-column{
+    text-align:center;
+}
+
+
+/*
+   Money must NEVER split across lines.
+
+   This keeps:
+       ₹ 1,25,000
+
+   together as one unit.
+*/
+
+.invoice-table td:nth-child(2),
+.invoice-table td:nth-child(4){
+    white-space:nowrap;
+    text-align:right;
+}
+
+
+/*
+   Quantity stays centred.
+*/
+
+.invoice-table td:nth-child(3){
+    text-align:center;
+    white-space:nowrap;
+}
+
+
+/*
+   Description can wrap if it genuinely needs to,
+   while the monetary columns retain enough space.
+*/
+
+.invoice-table td:first-child{
+    text-align:left;
+    overflow-wrap:anywhere;
+}
+
+
+/*
+   Keep the currency symbol visually separated
+   from the number without allowing a line break.
+*/
+
 .currency{
     margin-right:7px;
+    white-space:nowrap;
 }
 
 
