@@ -181,10 +181,29 @@ body{
     row-gap:22px;
 }
 
+/*
+   Separate form grids need their own vertical spacing.
+
+   This creates breathing room between:
+
+   Invoice Date / Item
+   ↓
+   Amount / Quantity
+
+   and:
+
+   Account Number / IFSC
+   ↓
+   Account Type / PAN
+*/
+
+.form-grid + .form-grid{
+    margin-top:22px;
+}
+
 .two-columns{
     grid-template-columns:1fr 1fr;
 }
-
 
 /* ==========================================================
    INPUTS
