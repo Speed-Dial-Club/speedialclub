@@ -409,13 +409,14 @@ body{
     min-height:100vh;
     padding:40px 20px 60px;
     background:#D60B2A;
+   
 }
 
 .preview-header{
     width:100%;
     max-width:1000px;
     margin:0 auto 30px;
-
+   color:#ffffff
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
@@ -427,12 +428,13 @@ body{
     margin-top:4px;
     font-size:30px;
     line-height:1.1;
+   color:#ffffff
     letter-spacing:-0.04em;
 }
 
 .preview-header p{
     margin-top:7px;
-    color:#747983;
+    color:#ffffff;
     font-size:14px;
 }
 
@@ -457,7 +459,7 @@ body{
 .pdf-note{
     margin:18px auto 0;
     text-align:center;
-    color:#8b9098;
+    color:#ffffff;
     font-size:11px;
 }
 
