@@ -878,12 +878,15 @@ body{
 
     .two-columns{
         grid-template-columns:1fr;
+       width:100%;
     }
 
-  .form-grid{
-    column-gap:0;
-    row-gap:18px;
-}
+ .form-grid{
+        width:100%;
+        min-width:0;
+        column-gap:0;
+        row-gap:18px;
+    }
 
 .form-grid + .form-grid{
     margin-top:18px;
@@ -1095,4 +1098,44 @@ body{
         transition:none !important;
     }
 
+}
+
+/* ==========================================================
+   IOS FORM INPUT FIX
+========================================================== */
+
+.input-group{
+    min-width:0;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+    min-width:0;
+    max-width:100%;
+}
+
+.input-group input[type="date"]{
+    width:100%;
+    min-width:0;
+    max-width:100%;
+
+    -webkit-appearance:none;
+    appearance:none;
+
+    display:block;
+}
+
+
+/*
+   Restore a comfortable date input appearance
+   after removing iOS's oversized intrinsic sizing.
+*/
+
+.input-group input[type="date"]::-webkit-date-and-time-value{
+    text-align:left;
+}
+
+.input-group input[type="date"]::-webkit-calendar-picker-indicator{
+    margin-left:auto;
 }
