@@ -23,7 +23,7 @@ body{
     width:100%;
     min-height:100vh;
     margin:0;
-    background:#f5f6f8;
+    background:#D60B2A;
     color:#111;
     font-family:
         -apple-system,
@@ -59,10 +59,12 @@ body{
 
 .invoice-generator-page{
     min-height:100vh;
+    width:100%;
     padding:60px 20px 80px;
     display:flex;
     justify-content:center;
     align-items:flex-start;
+    background:#D60B2A;
 }
 
 .generator-card{
@@ -72,7 +74,7 @@ body{
     border-radius:20px;
     padding:44px;
     box-shadow:
-        0 20px 60px rgba(0,0,0,0.08);
+        0 20px 60px rgba(0,0,0,0.16);
 }
 
 
@@ -157,11 +159,26 @@ body{
 
 /* ==========================================================
    FORM GRID
+
+   IMPORTANT:
+   row-gap controls the vertical breathing room between
+   fields such as:
+
+   Invoice Date / Item
+            ↓
+   Amount / Quantity
+
+   and:
+
+   Account Number / IFSC
+            ↓
+   Account Type / PAN
 ========================================================== */
 
 .form-grid{
     display:grid;
-    gap:18px;
+    column-gap:18px;
+    row-gap:22px;
 }
 
 .two-columns{
@@ -233,15 +250,27 @@ body{
 
 .input-group select{
     appearance:none;
+
     background-image:
-        linear-gradient(45deg, transparent 50%, #777 50%),
-        linear-gradient(135deg, #777 50%, transparent 50%);
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #777 50%
+        ),
+        linear-gradient(
+            135deg,
+            #777 50%,
+            transparent 50%
+        );
+
     background-position:
         calc(100% - 18px) 20px,
         calc(100% - 13px) 20px;
+
     background-size:
         5px 5px,
         5px 5px;
+
     background-repeat:no-repeat;
 }
 
@@ -252,6 +281,7 @@ body{
 
 .input-error{
     border-color:#D60B2A !important;
+
     box-shadow:
         0 0 0 3px rgba(214,11,42,0.08) !important;
 }
@@ -287,6 +317,7 @@ body{
     font-size:14px;
     font-weight:700;
     cursor:pointer;
+
     transition:
         transform .18s ease,
         box-shadow .18s ease,
@@ -296,12 +327,14 @@ body{
 .primary-button{
     background:#D60B2A;
     color:#fff;
+
     box-shadow:
         0 8px 20px rgba(214,11,42,0.20);
 }
 
 .primary-button:hover{
     transform:translateY(-1px);
+
     box-shadow:
         0 11px 26px rgba(214,11,42,0.26);
 }
@@ -356,16 +389,18 @@ body{
 .preview-page{
     min-height:100vh;
     padding:40px 20px 60px;
-    background:#f1f2f4;
+    background:#D60B2A;
 }
 
 .preview-header{
     width:100%;
     max-width:1000px;
     margin:0 auto 30px;
+
     display:flex;
     align-items:flex-end;
     justify-content:space-between;
+
     gap:20px;
 }
 
@@ -416,7 +451,9 @@ body{
     width:100%;
     max-width:1000px;
     margin:0 auto;
+
     overflow:hidden;
+
     display:flex;
     justify-content:center;
     align-items:flex-start;
@@ -424,21 +461,30 @@ body{
 
 .invoice-scale-wrapper{
     position:relative;
+
     width:794px;
     height:1123px;
+
     flex:0 0 794px;
 }
 
 .invoice-paper{
     position:absolute;
+
     top:0;
     left:0;
+
     width:794px;
     height:1123px;
+
     background:#fff;
+
     border:3px solid #111;
+
     overflow:hidden;
+
     transform-origin:top left;
+
     color:#111;
 }
 
@@ -450,14 +496,18 @@ body{
 .invoice-red-bar{
     width:100%;
     height:27px;
+
     background:#D60B2A;
+
     border-bottom:3px solid #111;
 }
 
 .bottom-bar{
     position:absolute;
+
     left:0;
     bottom:0;
+
     border-top:3px solid #111;
     border-bottom:none;
 }
@@ -469,9 +519,12 @@ body{
 
 .invoice-content{
     position:relative;
+
     width:100%;
     height:calc(100% - 54px);
+
     padding:72px 74px 50px;
+
     font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -489,8 +542,11 @@ body{
 .invoice-header h2{
     font-size:47px;
     line-height:1;
+
     font-weight:800;
+
     letter-spacing:-0.035em;
+
     margin-bottom:27px;
 }
 
@@ -511,20 +567,25 @@ body{
 
 .bill-to{
     margin-top:49px;
+
     font-size:16px;
     line-height:1.5;
+
     max-width:650px;
 }
 
 .bill-to h3{
     font-size:17px;
     font-weight:800;
+
     margin-bottom:10px;
 }
 
 .bill-to > strong{
     display:block;
+
     font-size:17px;
+
     margin-bottom:2px;
 }
 
@@ -543,8 +604,10 @@ body{
 
 .invoice-table{
     width:100%;
+
     border-collapse:collapse;
     table-layout:fixed;
+
     font-size:15px;
 }
 
@@ -556,8 +619,10 @@ body{
 
 .invoice-table th{
     height:47px;
+
     font-size:15px;
     font-weight:750;
+
     text-align:center;
 }
 
@@ -607,10 +672,13 @@ body{
 .invoice-total{
     width:300px;
     height:64px;
+
     margin-top:61px;
     margin-left:auto;
+
     display:grid;
     grid-template-columns:1fr 145px;
+
     border:1px solid #222;
 }
 
@@ -618,8 +686,11 @@ body{
 .total-value{
     display:flex;
     align-items:center;
+
     height:100%;
+
     padding:0 14px;
+
     font-size:16px;
 }
 
@@ -641,11 +712,14 @@ body{
 
 .invoice-bottom{
     position:absolute;
+
     left:74px;
     right:74px;
     bottom:70px;
+
     display:grid;
     grid-template-columns:1fr 1fr;
+
     column-gap:72px;
 }
 
@@ -658,8 +732,10 @@ body{
 .payment-details h3,
 .creator-details h3{
     margin-bottom:12px;
+
     font-size:17px;
     line-height:1.2;
+
     font-weight:800;
 }
 
@@ -681,6 +757,7 @@ body{
 .creator-line{
     display:flex;
     align-items:flex-start;
+
     gap:5px;
 }
 
@@ -718,13 +795,25 @@ body{
         font-size:29px;
     }
 
+
+    /*
+       On mobile the two-column grids become
+       single-column.
+
+       We KEEP a vertical gap between every field.
+       This prevents fields such as Account Type/PAN
+       from touching the row above.
+    */
+
     .two-columns{
         grid-template-columns:1fr;
     }
 
     .form-grid{
-        gap:0;
+        column-gap:0;
+        row-gap:18px;
     }
+
 
     .form-section{
         padding:25px 0;
@@ -736,6 +825,10 @@ body{
 
     .input-group{
         margin-bottom:17px;
+    }
+
+    .form-grid .input-group{
+        margin-bottom:0;
     }
 
     .input-group input,
@@ -763,7 +856,9 @@ body{
 
     .preview-header{
         display:block;
+
         padding:0 16px;
+
         margin-bottom:22px;
     }
 
@@ -781,8 +876,11 @@ body{
 
     .mobile-actions{
         display:flex;
+
         flex-direction:column;
+
         padding:0 16px;
+
         margin-top:18px;
     }
 
@@ -842,8 +940,10 @@ body{
     body{
         width:210mm;
         height:297mm;
+
         margin:0 !important;
         padding:0 !important;
+
         background:#fff !important;
     }
 
@@ -853,10 +953,13 @@ body{
 
     .preview-page{
         display:block !important;
+
         width:210mm !important;
         min-height:297mm !important;
+
         padding:0 !important;
         margin:0 !important;
+
         background:#fff !important;
     }
 
@@ -869,16 +972,22 @@ body{
     .invoice-viewport{
         width:210mm !important;
         max-width:none !important;
+
         height:297mm !important;
+
         margin:0 !important;
+
         overflow:visible !important;
+
         display:block !important;
     }
 
     .invoice-scale-wrapper{
         width:794px !important;
         height:1123px !important;
+
         transform:none !important;
+
         margin:0 !important;
     }
 
