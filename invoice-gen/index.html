@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#D60B2A">
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes">
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent">
+
+    <title>Invoice Generator | Speed Dial Club</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/invoice-gen.css">
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         FORM PAGE
+    ====================================================== -->
+
+    <main
+        id="formPage"
+        class="invoice-generator-page">
+
+        <div class="generator-card">
+
+            <div class="generator-header">
+
+                <div class="brand-mark">
+                    SPEED DIAL CLUB
+                </div>
+
+                <h1>
+                    Invoice Generator
+                </h1>
+
+                <p>
+                    Create your invoice in a few simple steps.
+                </p>
+
+            </div>
+
+
+            <form
+                id="invoiceForm"
+                novalidate>
+
+
+                <!-- =================================================
+                     INVOICE DETAILS
+                ================================================== -->
+
+                <section class="form-section">
+
+                    <div class="section-heading">
+
+                        <span class="section-number">
+                            01
+                        </span>
+
+                        <div>
+                            <h2>
+                                Invoice Details
+                            </h2>
+
+                            <p>
+                                Enter the basic invoice information.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid two-columns">
+
+                        <div class="input-group">
+
+                            <label for="invoiceDate">
+                                Invoice Date
+                            </label>
+
+                            <input
+                                id="invoiceDate"
+                                name="invoiceDate"
+                                type="date"
+                                required>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="invoiceItem">
+                                Item & Description
+                            </label>
+
+                            <select
+                                id="invoiceItem"
+                                name="invoiceItem"
+                                required>
+
+                                <option value="">
+                                    Select an item
+                                </option>
+
+                                <option value="Instagram Reel">
+                                    Instagram Reel
+                                </option>
+
+                                <option value="Instagram Story">
+                                    Instagram Story
+                                </option>
+
+                                <option value="Instagram Post">
+                                    Instagram Post
+                                </option>
+
+                                <option value="Instagram Carousel">
+                                    Instagram Carousel
+                                </option>
+
+                                <option value="YouTube Integration">
+                                    YouTube Integration
+                                </option>
+
+                                <option value="YouTube Short">
+                                    YouTube Short
+                                </option>
+
+                                <option value="Content Creation">
+                                    Content Creation
+                                </option>
+
+                                <option value="Brand Collaboration">
+                                    Brand Collaboration
+                                </option>
+
+                                <option value="UGC Content">
+                                    UGC Content
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="customItemWrapper"
+                        class="input-group hidden">
+
+                        <label for="customItem">
+                            Custom Item & Description
+                        </label>
+
+                        <input
+                            id="customItem"
+                            type="text"
+                            maxlength="80"
+                            placeholder="Enter item description">
+
+                        <div class="error-message"></div>
+
+                    </div>
+
+
+                    <div class="form-grid two-columns">
+
+                        <div class="input-group">
+
+                            <label for="unitPrice">
+                                Amount (₹)
+                            </label>
+
+                            <input
+                                id="unitPrice"
+                                name="unitPrice"
+                                type="number"
+                                min="0.01"
+                                step="0.01"
+                                inputmode="decimal"
+                                placeholder="Enter amount"
+                                required>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="quantity">
+                                Quantity
+                            </label>
+
+                            <input
+                                id="quantity"
+                                name="quantity"
+                                type="number"
+                                min="1"
+                                step="1"
+                                inputmode="numeric"
+                                placeholder="Enter quantity"
+                                required>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     CREATOR DETAILS
+                ================================================== -->
+
+                <section class="form-section">
+
+                    <div class="section-heading">
+
+                        <span class="section-number">
+                            02
+                        </span>
+
+                        <div>
+                            <h2>
+                                Your Details
+                            </h2>
+
+                            <p>
+                                These details will appear on the invoice.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="creatorName">
+                            Name
+                        </label>
+
+                        <input
+                            id="creatorName"
+                            name="creatorName"
+                            type="text"
+                            autocomplete="name"
+                            placeholder="Enter your full name"
+                            required>
+
+                        <div class="error-message"></div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="creatorAddress">
+                            Address
+                        </label>
+
+                        <textarea
+                            id="creatorAddress"
+                            name="creatorAddress"
+                            rows="3"
+                            maxlength="180"
+                            autocomplete="street-address"
+                            placeholder="Enter your address"
+                            required></textarea>
+
+                        <div class="error-message"></div>
+
+                    </div>
+
+
+                    <div class="form-grid two-columns">
+
+                        <div class="input-group">
+
+                            <label for="creatorPhone">
+                                Number
+                                <span class="optional">
+                                    Optional
+                                </span>
+                            </label>
+
+                            <input
+                                id="creatorPhone"
+                                name="creatorPhone"
+                                type="tel"
+                                inputmode="numeric"
+                                autocomplete="tel"
+                                maxlength="10"
+                                placeholder="10-digit mobile number">
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="creatorEmail">
+                                Email
+                                <span class="optional">
+                                    Optional
+                                </span>
+                            </label>
+
+                            <input
+                                id="creatorEmail"
+                                name="creatorEmail"
+                                type="email"
+                                autocomplete="email"
+                                placeholder="you@example.com">
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     PAYMENT DETAILS
+                ================================================== -->
+
+                <section class="form-section">
+
+                    <div class="section-heading">
+
+                        <span class="section-number">
+                            03
+                        </span>
+
+                        <div>
+                            <h2>
+                                Payment Details
+                            </h2>
+
+                            <p>
+                                Enter the bank details that should appear on the invoice.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="bankName">
+                            Bank
+                        </label>
+
+                        <input
+                            id="bankName"
+                            name="bankName"
+                            type="text"
+                            autocomplete="organization"
+                            placeholder="Enter bank name"
+                            required>
+
+                        <div class="error-message"></div>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="accountName">
+                            Account Name
+                        </label>
+
+                        <input
+                            id="accountName"
+                            name="accountName"
+                            type="text"
+                            autocomplete="name"
+                            placeholder="Name as per bank account"
+                            required>
+
+                        <div class="error-message"></div>
+
+                    </div>
+
+
+                    <div class="form-grid two-columns">
+
+                        <div class="input-group">
+
+                            <label for="accountNumber">
+                                Account Number
+                            </label>
+
+                            <input
+                                id="accountNumber"
+                                name="accountNumber"
+                                type="text"
+                                inputmode="numeric"
+                                autocomplete="off"
+                                maxlength="18"
+                                placeholder="9–18 digit account number"
+                                required>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="ifsc">
+                                IFSC Code
+                            </label>
+
+                            <input
+                                id="ifsc"
+                                name="ifsc"
+                                type="text"
+                                autocomplete="off"
+                                maxlength="11"
+                                placeholder="e.g. HDFC0001234"
+                                required>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid two-columns">
+
+                        <div class="input-group">
+
+                            <label for="accountType">
+                                Account Type
+                            </label>
+
+                            <select
+                                id="accountType"
+                                name="accountType"
+                                required>
+
+                                <option value="">
+                                    Select account type
+                                </option>
+
+                                <option value="Savings">
+                                    Savings
+                                </option>
+
+                                <option value="Current">
+                                    Current
+                                </option>
+
+                            </select>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+
+                        <div class="input-group">
+
+                            <label for="pan">
+                                PAN
+                            </label>
+
+                            <input
+                                id="pan"
+                                name="pan"
+                                type="text"
+                                autocomplete="off"
+                                maxlength="10"
+                                placeholder="ABCDE1234F"
+                                required>
+
+                            <div class="error-message"></div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     SUBMIT
+                ================================================== -->
+
+                <div class="form-actions">
+
+                    <button
+                        id="generateBtn"
+                        type="submit"
+                        class="primary-button">
+
+                        Generate Invoice
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <p class="privacy-note">
+                    Your information is used only to generate the invoice.
+                </p>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         PREVIEW PAGE
+    ====================================================== -->
+
+    <main
+        id="previewPage"
+        class="preview-page hidden">
+
+
+        <div class="preview-header">
+
+            <div>
+
+                <div class="brand-mark">
+                    SPEED DIAL CLUB
+                </div>
+
+                <h1>
+                    Invoice Preview
+                </h1>
+
+                <p>
+                    Review your invoice before downloading it.
+                </p>
+
+            </div>
+
+
+            <div class="preview-actions desktop-actions">
+
+                <button
+                    id="editBtnTop"
+                    type="button"
+                    class="secondary-button">
+
+                    ← Edit Details
+
+                </button>
+
+                <button
+                    id="downloadBtnTop"
+                    type="button"
+                    class="primary-button">
+
+                    Download PDF
+                    ↓
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MOBILE-SAFE A4 PREVIEW WRAPPER
+        ================================================== -->
+
+        <div
+            id="invoiceViewport"
+            class="invoice-viewport">
+
+            <div
+                id="invoiceScaleWrapper"
+                class="invoice-scale-wrapper">
+
+                <article
+                    id="invoicePaper"
+                    class="invoice-paper">
+
+
+                    <!-- TOP RED BAR -->
+
+                    <div class="invoice-red-bar"></div>
+
+
+                    <!-- MAIN CONTENT -->
+
+                    <div class="invoice-content">
+
+
+                        <!-- HEADER -->
+
+                        <section class="invoice-header">
+
+                            <div>
+
+                                <h2>
+                                    INVOICE
+                                </h2>
+
+                                <div class="invoice-meta">
+
+                                    <div>
+                                        Invoice Number:
+                                        <span id="previewInvoiceNumber">
+                                            #
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        Invoice Date:
+                                        <span id="previewInvoiceDate">
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+
+                        <!-- BILL TO -->
+
+                        <section class="bill-to">
+
+                            <h3>
+                                BILL TO
+                            </h3>
+
+                            <strong>
+                                Speed Dial Club
+                            </strong>
+
+                            <div>
+                                <strong>Address:</strong>
+                                C307, Raheja Park Apartments, Magadi Main Road, AD Halli, Bengaluru - 560079
+                            </div>
+
+                            <div>
+                                <strong>GSTIN:</strong>
+                                29EQGPR3642H1ZF
+                            </div>
+
+                            <div>
+                                <strong>PAN:</strong>
+                                EQGPR3642H
+                            </div>
+
+                        </section>
+
+
+
+                        <!-- ITEM TABLE -->
+
+                        <section class="invoice-table-wrapper">
+
+                            <table class="invoice-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th class="description-column">
+                                            Item &amp; Description
+                                        </th>
+
+                                        <th class="price-column">
+                                            Unit Price
+                                        </th>
+
+                                        <th class="qty-column">
+                                            Qty
+                                        </th>
+
+                                        <th class="amount-column">
+                                            Amount
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td id="previewItem">
+                                            Instagram Reel
+                                        </td>
+
+                                        <td>
+                                            <span class="currency">
+                                                ₹
+                                            </span>
+
+                                            <span id="previewUnitPrice">
+                                                0
+                                            </span>
+                                        </td>
+
+                                        <td id="previewQuantity">
+                                            1
+                                        </td>
+
+                                        <td>
+                                            <span class="currency">
+                                                ₹
+                                            </span>
+
+                                            <span id="previewAmount">
+                                                0
+                                            </span>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </section>
+
+
+
+                        <!-- TOTAL -->
+
+                        <section class="invoice-total">
+
+                            <div class="total-label">
+                                Total
+                            </div>
+
+                            <div class="total-value">
+
+                                <span>
+                                    ₹
+                                </span>
+
+                                <span id="previewTotal">
+                                    0
+                                </span>
+
+                            </div>
+
+                        </section>
+
+
+
+                        <!-- BOTTOM INFORMATION -->
+
+                        <section class="invoice-bottom">
+
+
+                            <!-- PAYMENT METHOD -->
+
+                            <div class="payment-details">
+
+                                <h3>
+                                    PAYMENT METHOD
+                                </h3>
+
+                                <div>
+                                    <span>Bank:</span>
+                                    <strong id="previewBank">
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Account Name:</span>
+                                    <strong id="previewAccountName">
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Account Number:</span>
+                                    <strong id="previewAccountNumber">
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>IFSC Code:</span>
+                                    <strong id="previewIfsc">
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>Account Type:</span>
+                                    <strong id="previewAccountType">
+                                    </strong>
+                                </div>
+
+                                <div>
+                                    <span>PAN:</span>
+                                    <strong id="previewPan">
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- CREATOR DETAILS -->
+
+                            <div class="creator-details">
+
+                                <h3 id="previewCreatorName">
+                                    YOUR NAME
+                                </h3>
+
+
+                                <div class="creator-line">
+
+                                    <strong>
+                                        Address:
+                                    </strong>
+
+                                    <span id="previewCreatorAddress">
+                                    </span>
+
+                                </div>
+
+
+                                <div class="creator-line">
+
+                                    <strong>
+                                        Number:
+                                    </strong>
+
+                                    <span id="previewCreatorPhone">
+                                    </span>
+
+                                </div>
+
+
+                                <div class="creator-line">
+
+                                    <strong>
+                                        Email:
+                                    </strong>
+
+                                    <span id="previewCreatorEmail">
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </section>
+
+                    </div>
+
+
+                    <!-- BOTTOM RED BAR -->
+
+                    <div class="invoice-red-bar bottom-bar"></div>
+
+                </article>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MOBILE ACTIONS -->
+
+        <div class="preview-actions mobile-actions">
+
+            <button
+                id="editBtn"
+                type="button"
+                class="secondary-button">
+
+                ← Edit Details
+
+            </button>
+
+            <button
+                id="downloadBtn"
+                type="button"
+                class="primary-button">
+
+                Download Invoice PDF
+                ↓
+
+            </button>
+
+        </div>
+
+
+        <p class="pdf-note">
+            The downloaded invoice will be generated as a full A4 PDF.
+        </p>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         PDF LIBRARIES
+    ====================================================== -->
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js">
+    </script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+    </script>
+
+
+    <!-- =====================================================
+         PAGE JAVASCRIPT
+    ====================================================== -->
+
+    <script src="../js/invoice-gen.js"></script>
+
+</body>
+
+</html>
