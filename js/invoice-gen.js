@@ -359,38 +359,52 @@ function validateField(field){
 
         case "creatorPhone":
 
-            if (
-                value &&
-                !/^[6-9]\d{9}$/.test(value)
-            ){
+    if (!value){
 
-                showError(
-                    field,
-                    "Enter a valid 10-digit Indian mobile number."
-                );
+        showError(
+            field,
+            "Mobile number is required."
+        );
 
-                return false;
-            }
+        return false;
+    }
 
-            break;
+    if (!/^[6-9]\d{9}$/.test(value)){
+
+        showError(
+            field,
+            "Enter a valid 10-digit Indian mobile number."
+        );
+
+        return false;
+    }
+
+    break;
 
 
         case "creatorEmail":
 
-            if (
-                value &&
-                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-            ){
+    if (!value){
 
-                showError(
-                    field,
-                    "Enter a valid email address."
-                );
+        showError(
+            field,
+            "Email address is required."
+        );
 
-                return false;
-            }
+        return false;
+    }
 
-            break;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)){
+
+        showError(
+            field,
+            "Enter a valid email address."
+        );
+
+        return false;
+    }
+
+    break;
 
 
         case "bankName":
@@ -1259,3 +1273,80 @@ downloadBtnTop.addEventListener(
     "click",
     downloadInvoice
 );
+
+/* ==========================================================
+   MOBILE INVOICE SCALING
+========================================================== */
+
+function scaleInvoicePreview(){
+
+    const wrapper = document.querySelector(
+        ".invoice-scale-wrapper"
+    );
+
+    if (!wrapper) return;
+
+    const viewport = document.querySelector(
+        ".invoice-viewport"
+    );
+
+    if (!viewport) return;
+
+    const invoiceWidth = 794;
+
+    const availableWidth =
+        viewport.clientWidth;
+
+    let scale =
+        availableWidth / invoiceWidth;
+
+    /*
+       Never enlarge the invoice beyond its natural
+       desktop size.
+    */
+    scale = Math.min(scale, 1);
+
+    /*
+       Keep a tiny safety margin so Safari doesn't
+       create fractional-pixel overflow.
+    */
+    scale = Math.max(scale - 0.005, 0.1);
+
+    wrapper.style.setProperty(
+        "--invoice-scale",
+        scale
+    );
+}
+
+
+/*
+   Run after the page has rendered.
+*/
+window.addEventListener(
+    "load",
+    scaleInvoicePreview
+);
+
+
+/*
+   Recalculate when the device rotates
+   or the viewport changes.
+*/
+window.addEventListener(
+    "resize",
+    scaleInvoicePreview
+);
+
+
+/*
+   iOS Safari can change the visual viewport
+   after the browser UI appears/disappears.
+*/
+if (window.visualViewport){
+
+    window.visualViewport.addEventListener(
+        "resize",
+        scaleInvoicePreview
+    );
+
+}
