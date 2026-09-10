@@ -65,10 +65,40 @@ const downloadBtnTop =
    INITIALISE DATE
 ========================================================== */
 
-function setToday(){
+/* ==========================================================
+   DATE INPUT
+========================================================== */
 
-    const dateInput =
-        document.getElementById("invoiceDate");
+const invoiceDate =
+    document.getElementById("invoiceDate");
+
+const invoiceDateDisplay =
+    document.getElementById("invoiceDateDisplay");
+
+
+function formatDisplayDate(dateString){
+
+    if (!dateString)
+        return "";
+
+    const date =
+        new Date(
+            `${dateString}T00:00:00`
+        );
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    );
+
+}
+
+
+function setToday(){
 
     const today =
         new Date();
@@ -77,18 +107,59 @@ function setToday(){
         today.getFullYear();
 
     const month =
-        String(today.getMonth() + 1)
-            .padStart(2, "0");
+        String(
+            today.getMonth() + 1
+        ).padStart(2, "0");
 
     const day =
-        String(today.getDate())
-            .padStart(2, "0");
+        String(
+            today.getDate()
+        ).padStart(2, "0");
 
-    dateInput.value =
+    const value =
         `${year}-${month}-${day}`;
+
+    invoiceDate.value =
+        value;
+
+    invoiceDateDisplay.value =
+        formatDisplayDate(value);
+
 }
 
+
 setToday();
+
+
+/*
+   Keep the pretty visible field in sync
+   with the actual date picker.
+*/
+
+invoiceDate.addEventListener(
+    "change",
+    () => {
+
+        invoiceDateDisplay.value =
+            formatDisplayDate(
+                invoiceDate.value
+            );
+
+        clearError(invoiceDate);
+
+    }
+);
+
+invoiceDateDisplay.addEventListener(
+    "click",
+    () => {
+
+        invoiceDate.showPicker
+            ? invoiceDate.showPicker()
+            : invoiceDate.click();
+
+    }
+);
 
 
 /* ==========================================================
