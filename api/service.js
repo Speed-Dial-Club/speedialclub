@@ -1,12 +1,18 @@
 /**
  * Performs a GET request to the Apps Script API.
  * @param {string} action
+ * @param {Object} params
  * @returns {Promise<Object>}
  */
-async function apiGet(action) {
+async function apiGet(action, params = {}) {
+
+    const query = new URLSearchParams({
+        action,
+        ...params
+    });
 
     const response = await fetch(
-        `${CONFIG.API.URL}?action=${encodeURIComponent(action)}`
+        `${CONFIG.API.URL}?${query.toString()}`
     );
 
     if (!response.ok) {
@@ -16,11 +22,12 @@ async function apiGet(action) {
     const result = await response.json();
 
     if (!result.success) {
-        throw new Error(result.message || "Request failed.");
+        throw new Error(
+            result.message || "Request failed."
+        );
     }
 
     return result.data;
-
 }
 
 
@@ -60,6 +67,22 @@ async function getCampaigns() {
 
     return await apiGet(
         CONFIG.API.ACTIONS.GET_CAMPAIGNS
+    );
+
+}
+
+/**
+ * Find an existing creator by phone number.
+ * @param {string} phone
+ * @returns {Promise<Object>}
+ */
+async function findCreatorByPhone(phone) {
+
+    return await apiGet(
+        CONFIG.API.ACTIONS.FIND_CREATOR,
+        {
+            phone: phone
+        }
     );
 
 }
