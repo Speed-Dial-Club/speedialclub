@@ -800,7 +800,7 @@ async function handleCreatorPhoneLookup() {
 
             popup.update(
                 "Existing Creator Found ✅",
-                "Your details have been filled in for you!"
+                "Your banking details have been filled in for you!"
             );
 
 
@@ -808,7 +808,7 @@ async function handleCreatorPhoneLookup() {
 
             popup.update(
                 "You are a New Creator 👋",
-                "Please proceed to enter your details."
+                "Please proceed to enter your banking details."
             );
 
         }
@@ -839,7 +839,7 @@ async function handleCreatorPhoneLookup() {
 
         popup.update(
             "Something went wrong",
-            "Please continue by entering your details manually."
+            "Please continue by entering your banking details manually."
         );
 
 
