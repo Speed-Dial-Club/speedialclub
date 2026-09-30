@@ -594,6 +594,10 @@ select{
    POPUP CARD
 ========================================================== */
 
+/* ==========================================================
+   CREATOR LOOKUP POPUP
+========================================================== */
+
 .creator-lookup-popup-inner {
     width: 100%;
     max-width: 420px;
@@ -613,6 +617,34 @@ select{
         0 8px 30px rgba(214, 11, 42, 0.12);
 
     animation: creatorPopupScaleIn 0.22s ease-out;
+}
+
+
+/* ==========================================================
+   ANIMATED MAGNIFYING GLASS
+========================================================== */
+
+.creator-lookup-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 18px;
+
+    font-size: 48px;
+
+    line-height: 1;
+
+    transform-origin: center;
+
+    animation:
+        creatorMagnifyScan 1.4s
+        ease-in-out
+        infinite;
 }
 
 
@@ -669,6 +701,43 @@ select{
 
 
 /* ==========================================================
+   MAGNIFYING GLASS ANIMATION
+========================================================== */
+
+@keyframes creatorMagnifyScan {
+
+    0% {
+        transform:
+            translateX(-8px)
+            rotate(-12deg)
+            scale(0.92);
+    }
+
+    35% {
+        transform:
+            translateX(8px)
+            rotate(8deg)
+            scale(1.05);
+    }
+
+    65% {
+        transform:
+            translateX(-4px)
+            rotate(-4deg)
+            scale(1);
+    }
+
+    100% {
+        transform:
+            translateX(-8px)
+            rotate(-12deg)
+            scale(0.92);
+    }
+
+}
+
+
+/* ==========================================================
    POPUP ANIMATIONS
 ========================================================== */
 
@@ -689,12 +758,16 @@ select{
 
     from {
         opacity: 0;
-        transform: scale(0.94) translateY(8px);
+        transform:
+            scale(0.94)
+            translateY(8px);
     }
 
     to {
         opacity: 1;
-        transform: scale(1) translateY(0);
+        transform:
+            scale(1)
+            translateY(0);
     }
 
 }
@@ -712,10 +785,15 @@ select{
 
     .creator-lookup-popup-inner {
         max-width: none;
-
         padding: 28px 22px;
-
         border-radius: 22px;
+    }
+
+    .creator-lookup-icon {
+        width: 58px;
+        height: 58px;
+        font-size: 44px;
+        margin-bottom: 16px;
     }
 
     .creator-lookup-title {
@@ -736,7 +814,8 @@ select{
 @media (prefers-reduced-motion: reduce) {
 
     .creator-lookup-popup,
-    .creator-lookup-popup-inner {
+    .creator-lookup-popup-inner,
+    .creator-lookup-icon {
         animation: none;
     }
 
