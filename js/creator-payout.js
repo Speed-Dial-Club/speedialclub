@@ -5,6 +5,7 @@
 const form = document.getElementById("creatorPayoutForm");
 const submitBtn = document.getElementById("submitBtn");
 let lastCreatorLookupPhone = "";
+let creatorLookupRunning = false;
 
 if (form) {
     initCreatorPayout();
@@ -65,20 +66,32 @@ async function handlePhoneLookup() {
     const phone =
         phoneField.value.trim();
 
-
-    // Only check complete 10-digit Indian numbers
+    // Only start lookup once 10 digits are entered
     if (!/^[6-9]\d{9}$/.test(phone)) {
         return;
     }
 
-
-    // Don't repeatedly search the same number
-    if (phone === lastCreatorLookupPhone) {
+    // Don't check the same number twice
+    if (
+        phone === lastCreatorLookupPhone ||
+        creatorLookupRunning
+    ) 
+    {
         return;
     }
 
-
     lastCreatorLookupPhone = phone;
+    creatorLookupRunning = true;
+
+    // Freeze everything except phone
+    setFormLocked(true);
+
+    // Show checking popup
+    const popup =
+        showCreatorPopup(
+            "🔍 Hold on",
+            "We're checking if you exist in our system already."
+        );
 
 
     try {
@@ -87,60 +100,116 @@ async function handlePhoneLookup() {
             await findCreatorByPhone(phone);
 
 
-        // New creator
-        // Do absolutely nothing.
-        if (!creator || !creator.found) {
-            return;
+        /*
+          EXISTING CREATOR
+        */
+
+        if (
+            creator &&
+            creator.found
+        ) {
+
+            // Replace name with saved name
+            document.getElementById("name").value =
+                creator.name || "";
+
+            document.getElementById("email").value =
+                creator.email || "";
+
+            document.getElementById("accountNumber").value =
+                creator.accountNumber || "";
+
+            document.getElementById("ifsc").value =
+                creator.ifsc || "";
+
+            document.getElementById("branch").value =
+                creator.branch || "";
+
+            document.getElementById("pan").value =
+                creator.pan || "";
+
+            document.getElementById("gst").value =
+                creator.gst || "";
+
+            popup.update(
+                "Existing Creator Found ✅",
+                "Your banking details have been filled in for you!"
+            );
         }
 
 
-        // Existing creator
-        document.getElementById("email").value =
-            creator.email || "";
+        /*
+          NEW CREATOR
+        */
+        else {
+            popup.update(
+                "You are a New Creator 👋",
+                "Please proceed to submit your banking details"
+            );
+        }
+        // Keep message visible for 2 seconds
+        await new Promise(resolve =>
+            setTimeout(resolve, 2000)
+        );
+        popup.remove();
 
-        document.getElementById("accountNumber").value =
-            creator.accountNumber || "";
-
-        document.getElementById("ifsc").value =
-            creator.ifsc || "";
-
-        document.getElementById("branch").value =
-            creator.branch || "";
-
-        document.getElementById("pan").value =
-            creator.pan || "";
-
-        document.getElementById("gst").value =
-            creator.gst || "";
-
-
-        showExistingCreatorPopup();
-
-
-    } catch (error) {
-
+    } 
+    catch (error) {
         console.error(
             "Creator lookup failed:",
             error
         );
 
+        popup.update(
+            "Something went wrong",
+            "Please continue by entering your details manually."
+        );
+
+        await new Promise(resolve =>
+            setTimeout(resolve, 2000)
+        );
+        popup.remove();
     }
 
+    // Unlock the form
+    setFormLocked(false);
+    creatorLookupRunning = false;
 }
 
-function showExistingCreatorPopup() {
+function setFormLocked(locked) {
+
+    const fields =
+        form.querySelectorAll(
+            "input, select, textarea, button"
+        );
+
+    fields.forEach(field => {
+
+        // Keep phone editable
+        if (field.id === "phone") {
+            return;
+        }
+        field.disabled = locked;
+    });
+}
+
+function showCreatorPopup(title, message) {
 
     const popup =
         document.createElement("div");
 
-    popup.innerHTML = `
-        <div class="creator-found-popup">
+    popup.className =
+        "creator-lookup-popup";
 
-            <strong>
-                Existing Creator Found ✅
+    popup.innerHTML = `
+        <div class="creator-lookup-popup-inner">
+
+            <strong class="creator-lookup-title">
+                ${title}
             </strong>
-            <span>
-                Your banking details have been filled in for you!
+
+            <span class="creator-lookup-message">
+                ${message}
             </span>
 
         </div>
@@ -148,9 +217,28 @@ function showExistingCreatorPopup() {
 
     document.body.appendChild(popup);
 
-    setTimeout(() => {
-        popup.remove();
-    }, 4000);
+    return {
+
+        update(newTitle, newMessage) {
+            const titleElement =
+                popup.querySelector(
+                    ".creator-lookup-title"
+                );
+            const messageElement =
+                popup.querySelector(
+                    ".creator-lookup-message"
+                );
+
+            titleElement.textContent =
+                newTitle;
+            messageElement.textContent =
+                newMessage;
+        },
+
+        remove() {
+            popup.remove();
+        }
+    };
 }
 /* ==========================================================
    LOAD CAMPAIGNS
