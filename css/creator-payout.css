@@ -491,3 +491,67 @@ select{
 }
 
 }
+
+.creator-found-popup {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 16px 20px;
+
+    background: #ffffff;
+    color: #222222;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.18);
+
+    font-size: 14px;
+    line-height: 1.4;
+
+    animation:
+        creatorPopupIn 0.25s ease-out;
+}
+
+.creator-found-popup strong {
+    font-size: 15px;
+}
+
+.creator-found-popup span {
+    color: #555555;
+}
+
+@keyframes creatorPopupIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .creator-found-popup {
+
+        top: 16px;
+        left: 16px;
+        right: 16px;
+
+        width: auto;
+
+    }
+
+}
