@@ -110,7 +110,7 @@ async function handlePhoneLookup() {
         ) {
 
             // Replace name with saved name
-            document.getElementById("name").value =
+            document.getElementById("fullName").value =
                 creator.name || "";
 
             document.getElementById("email").value =
