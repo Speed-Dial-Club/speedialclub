@@ -4,10 +4,11 @@ const CONFIG = {
 
         URL: "https://script.google.com/macros/s/AKfycbzLSv1pGkyUyTVxvM_fuQ5LKYx53B8KFOF0H7nMElFsbAbcq8jsHcfLo7Ak1bGJjHGh8g/exec",
 
-        ACTIONS: {
-            GET_CAMPAIGNS: "campaigns",
-            SUBMIT_PAYOUT: "submitPayout"
-        }
+       ACTIONS: {
+    GET_CAMPAIGNS: "campaigns",
+    FIND_CREATOR: "findCreator",
+    SUBMIT_PAYOUT: "submitPayout"
+}
 
     },
 
