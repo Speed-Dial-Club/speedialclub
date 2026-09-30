@@ -4,6 +4,7 @@
 
 const form = document.getElementById("creatorPayoutForm");
 const submitBtn = document.getElementById("submitBtn");
+let lastCreatorLookupPhone = "";
 
 if (form) {
     initCreatorPayout();
@@ -42,7 +43,114 @@ function bindEvents() {
         field.addEventListener("blur", () => validateField(field));
 
     });
+   const phoneField =
+    document.getElementById("phone");
 
+phoneField.addEventListener(
+    "input",
+    handlePhoneLookup
+);
+
+}
+
+/* ==========================================================
+LookUp
+========================================================== */
+
+async function handlePhoneLookup() {
+
+    const phoneField =
+        document.getElementById("phone");
+
+    const phone =
+        phoneField.value.trim();
+
+
+    // Only check complete 10-digit Indian numbers
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+        return;
+    }
+
+
+    // Don't repeatedly search the same number
+    if (phone === lastCreatorLookupPhone) {
+        return;
+    }
+
+
+    lastCreatorLookupPhone = phone;
+
+
+    try {
+
+        const creator =
+            await findCreatorByPhone(phone);
+
+
+        // New creator
+        // Do absolutely nothing.
+        if (!creator || !creator.found) {
+            return;
+        }
+
+
+        // Existing creator
+        document.getElementById("email").value =
+            creator.email || "";
+
+        document.getElementById("accountNumber").value =
+            creator.accountNumber || "";
+
+        document.getElementById("ifsc").value =
+            creator.ifsc || "";
+
+        document.getElementById("branch").value =
+            creator.branch || "";
+
+        document.getElementById("pan").value =
+            creator.pan || "";
+
+        document.getElementById("gst").value =
+            creator.gst || "";
+
+
+        showExistingCreatorPopup();
+
+
+    } catch (error) {
+
+        console.error(
+            "Creator lookup failed:",
+            error
+        );
+
+    }
+
+}
+
+function showExistingCreatorPopup() {
+
+    const popup =
+        document.createElement("div");
+
+    popup.innerHTML = `
+        <div class="creator-found-popup">
+
+            <strong>
+                Existing Creator Found ✅
+            </strong>
+            <span>
+                Your banking details have been filled in for you!
+            </span>
+
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+        popup.remove();
+    }, 4000);
 }
 /* ==========================================================
    LOAD CAMPAIGNS
