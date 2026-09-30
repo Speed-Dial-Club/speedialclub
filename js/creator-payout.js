@@ -89,7 +89,7 @@ async function handlePhoneLookup() {
     // Show checking popup
     const popup =
         showCreatorPopup(
-            "🔍 Hold on",
+            "Hold on",
             "We're checking if you exist in our system already."
         );
 
@@ -201,19 +201,23 @@ function showCreatorPopup(title, message) {
     popup.className =
         "creator-lookup-popup";
 
-    popup.innerHTML = `
-        <div class="creator-lookup-popup-inner">
+   popup.innerHTML = `
+    <div class="creator-lookup-popup-inner">
 
-            <strong class="creator-lookup-title">
-                ${title}
-            </strong>
-
-            <span class="creator-lookup-message">
-                ${message}
-            </span>
-
+        <div class="creator-lookup-icon">
+            🔍
         </div>
-    `;
+
+        <strong class="creator-lookup-title">
+            ${title}
+        </strong>
+
+        <span class="creator-lookup-message">
+            ${message}
+        </span>
+
+    </div>
+`;
 
     document.body.appendChild(popup);
 
