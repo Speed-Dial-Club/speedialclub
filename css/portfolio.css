@@ -399,3 +399,157 @@ footer small {
     animation: none !important;
   }
 }
+
+
+/* -----------------------------------------
+   REEL FLIPBOARD
+----------------------------------------- */
+
+.reel-card {
+  perspective: 1000px;
+}
+
+.reel-flip {
+  width: 100%;
+  aspect-ratio: 9 / 14;
+  position: relative;
+}
+
+.reel-flip-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(.2, .75, .25, 1);
+}
+
+.reel-card:hover .reel-flip-inner,
+.reel-card:focus-visible .reel-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.reel-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.reel-front {
+  background: #e8dfd8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s;
+}
+
+.reel-card:hover .reel-front {
+  background: #f0c5cc;
+}
+
+.reel-front .rank {
+  z-index: 1;
+}
+
+.reel-front .play {
+  flex-shrink: 0;
+}
+
+.flip-hint {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 12px;
+  text-align: center;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .06em;
+  color: #555;
+}
+
+.reel-back {
+  transform: rotateY(180deg);
+  background: var(--ink);
+  color: #fff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 13px;
+}
+
+.back-rank {
+  color: #ffb7c2;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .1em;
+  margin-bottom: 2px;
+}
+
+.back-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.back-stat span {
+  color: #c7c7c7;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .06em;
+}
+
+.back-stat strong {
+  font-size: clamp(1rem, 1.6vw, 1.55rem);
+  line-height: 1.1;
+  letter-spacing: -.05em;
+  overflow-wrap: anywhere;
+}
+
+.back-stat.back-er strong {
+  color: #ffb7c2;
+}
+
+.back-cta {
+  margin-top: 2px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, .25);
+  color: #ffb7c2;
+  font: 9px 'DM Mono', monospace;
+  letter-spacing: .04em;
+}
+
+.reel-card:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .reel-flip {
+    aspect-ratio: 9 / 11;
+  }
+
+  .reel-back {
+    padding: 10px;
+    gap: 9px;
+  }
+
+  .back-stat span {
+    font-size: 8px;
+  }
+
+  .back-stat strong {
+    font-size: 1.05rem;
+  }
+
+  .flip-hint,
+  .back-rank,
+  .back-cta {
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-flip-inner {
+    transition: none;
+  }
+}
