@@ -1,9 +1,77 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#D60B2A"><title>Our Work | Speed Dial Club</title><link rel="stylesheet" href="css/portfolio.css"></head><body>
-<header class="site-header"><a class="brand" href="index.html" aria-label="Speed Dial Club home"><img src="assets/logos/SDC Logo.png" alt="Speed Dial Club"></a><span class="header-note">CREATOR CAMPAIGNS / 2025–26</span><a class="header-link" href="#campaigns">Explore the work <b>↘</b></a></header>
-<main><section class="hero" id="top"><div class="eyebrow"><i></i> SPEED DIAL CLUB® / PORTFOLIO</div><h1>Attention<br>is a <em>currency.</em></h1><p>We turn creator culture into measurable momentum.</p><a class="scroll-cue" href="#totals">SCROLL TO SEE THE IMPACT <span>↓</span></a><span class="hero-side">30 CAMPAIGNS · 465 REELS</span></section>
-<section class="totals section" id="totals"><div class="eyebrow red">01 / THE BIG PICTURE</div><h2>Big numbers.<br>Moving parts.</h2><p class="intro">Watch the numbers flip into place. CPV goes the other way.</p><div class="totals-grid"><article><span>TOTAL BUDGET</span><strong data-count="5910000" data-kind="lakh">₹0</strong></article><article><span>TOTAL VIEWS</span><strong data-count="41430234" data-kind="int">0</strong></article><article><span>TOTAL REELS</span><strong data-count="465" data-kind="int">0</strong></article><article class="cpv-tile"><span>COST PER VIEW</span><strong data-count="0.1426" data-start="5" data-kind="cpv">₹5.0000</strong><small>Lower is better ↘</small></article></div><div class="progress"><span id="progress-bar"></span></div><button class="replay" id="replay" type="button">↻ Replay the flipboard</button></section>
-<section class="campaigns section" id="campaigns"><div class="campaign-top"><div><div class="eyebrow red">02 / THE CAMPAIGNS</div><h2>Ranked by impact.</h2><p class="intro">Explore all 30 campaigns. Open one to see its five highest-view Reels.</p></div><div class="count"><b id="count">30</b><span>CAMPAIGNS</span></div></div><div class="toolbar"><label class="search">⌕ <input id="search" type="search" placeholder="Search campaigns…"></label><label class="sort"><span>RANK BY</span><select id="sort"><option value="views">Most views</option><option value="er">Highest engagement</option><option value="cpv">Lowest CPV</option></select></label></div><div id="campaign-list"></div><p id="empty" hidden>No campaigns found.</p></section>
-<section class="outro"><span>THAT'S THE RECAP.</span><h2>Got a brief?<br><em>Let's make it move.</em></h2><a href="index.html#contact">LET'S TALK ↗</a></section></main><footer><b>SPEED DIAL CLUB®</b><a href="#top">BACK TO TOP ↑</a></footer>
-<div class="modal" id="modal" aria-hidden="true"><button class="modal-backdrop" data-close aria-label="Close preview"></button><div class="modal-panel" role="dialog" aria-modal="true" aria-label="Instagram Reel preview"><button class="modal-close" data-close aria-label="Close">×</button><div id="embed"></div><p class="fallback">Instagram may block embedded playback in some browsers. Use the link below if the preview doesn't load.</p><a id="original" target="_blank" rel="noopener noreferrer">OPEN ORIGINAL REEL ON INSTAGRAM ↗</a></div></div>
-<script src="js/portfolio.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#D60B2A">
+  <title>Our Work | Speed Dial Club</title>
+
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/portfolio.css">
+</head>
+
+<body>
+  <nav class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logos/SDC Logo.png" alt="Speed Dial Club">
+    </a>
+    <a class="back" href="index.html">← Home</a>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">THE WORK SPEAKS INTERNET</p>
+
+    <h1>We make the<br>
+      <span>internet pay attention.</span>
+    </h1>
+
+    <p class="intro">
+      Campaigns built for scroll-stopping reach, real conversations,
+      and numbers that do the talking.
+    </p>
+
+    <a class="scroll-link" href="#campaigns">
+      Explore the work <span>↓</span>
+    </a>
+
+    <div class="hero-stats">
+      <div>
+        <strong>30</strong>
+        <span>Campaigns</span>
+      </div>
+      <div>
+        <strong>465</strong>
+        <span>Reels published</span>
+      </div>
+      <div>
+        <strong>41.4M+</strong>
+        <span>Reported views</span>
+      </div>
+    </div>
+
+    <span class="scribble" aria-hidden="true">↘</span>
+  </header>
+
+  <main id="campaigns">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">THE PORTFOLIO</p>
+        <h2>Proof in the playbacks.</h2>
+      </div>
+      <p>Each campaign shows its five highest-viewed Reels, ranked by views.</p>
+    </div>
+
+    <div id="campaignList" class="campaign-list">
+      <p class="loading">Loading campaigns…</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>Got something worth making noise about?</p>
+    <a href="mailto:contact@speedialclub.in">Let's talk ↗</a>
+    <small>© 2026 Speed Dial Club</small>
+  </footer>
+
+  <script src="js/portfolio.js"></script>
+</body>
+</html>
