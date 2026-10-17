@@ -435,49 +435,86 @@ campaignList.innerHTML = rankedCampaigns.map((campaign, index) => {
 }).join("");
 
 
-/* ===== TOTAL METRICS FLIPBOARD ===== */
+
+/* ===== SPLIT-FLAP DIGIT ANIMATION ===== */
 
 (() => {
-  const board = document.getElementById("metricsBoard");
-  if (!board) return;
+  const values = document.querySelectorAll(
+    "#campaign-metrics .flap-value"
+  );
 
-  let flipInterval;
-  let paused = false;
+  if (!values.length) return;
 
-  const flip = () => {
-    if (!paused) {
-      board.classList.toggle("is-flipped");
+  const makeDigit = (digit, animate = false) => {
+    const tile = document.createElement("span");
+    tile.className = "flap-digit";
+    tile.setAttribute("aria-hidden", "true");
+
+    const staticDigit = document.createElement("span");
+    staticDigit.className = "digit-static";
+    staticDigit.textContent = digit;
+
+    const top = document.createElement("span");
+    top.className = "digit-top";
+    const topText = document.createElement("span");
+    topText.textContent = digit;
+    top.appendChild(topText);
+
+    const bottom = document.createElement("span");
+    bottom.className = "digit-bottom";
+    const bottomText = document.createElement("span");
+    bottomText.textContent = digit;
+    bottom.appendChild(bottomText);
+
+    const flip = document.createElement("span");
+    flip.className = "digit-flip";
+    const flipText = document.createElement("span");
+    flipText.textContent = digit;
+    flip.appendChild(flipText);
+
+    const seam = document.createElement("span");
+    seam.className = "digit-seam";
+
+    tile.append(staticDigit, top, bottom, flip, seam);
+
+    if (animate && /\d/.test(digit)) {
+      tile.dataset.target = digit;
+      tile.dataset.current = "8";
+      staticDigit.textContent = "8";
+      topText.textContent = "8";
+      bottomText.textContent = digit;
+      flipText.textContent = digit;
+      tile.classList.add("is-flipping");
+
+      flip.addEventListener("animationend", () => {
+        staticDigit.textContent = digit;
+        topText.textContent = digit;
+        bottomText.textContent = digit;
+        flipText.textContent = digit;
+        tile.classList.remove("is-flipping");
+      }, { once: true });
     }
+
+    return tile;
   };
 
-  const startFlipping = () => {
-    clearInterval(flipInterval);
-    flipInterval = setInterval(flip, 3500);
-  };
+  values.forEach((value, metricIndex) => {
+    const target = value.dataset.value || "";
+    value.replaceChildren();
 
-  board.addEventListener("mouseenter", () => {
-    paused = true;
-    clearInterval(flipInterval);
+    [...target].forEach((char, charIndex) => {
+      if (/\d/.test(char)) {
+        value.appendChild(makeDigit(char, true));
+      } else {
+        const symbol = document.createElement("span");
+        symbol.className = "flap-symbol";
+        symbol.textContent = char === " " ? "\u00a0" : char;
+        symbol.setAttribute("aria-hidden", "true");
+        value.appendChild(symbol);
+      }
+    });
+
+    value.setAttribute("role", "img");
+    value.setAttribute("aria-label", target);
   });
-
-  board.addEventListener("mouseleave", () => {
-    paused = false;
-    startFlipping();
-  });
-
-  board.addEventListener("click", () => {
-    board.classList.toggle("is-flipped");
-  });
-
-  board.addEventListener("focusin", () => {
-    paused = true;
-    clearInterval(flipInterval);
-  });
-
-  board.addEventListener("focusout", () => {
-    paused = false;
-    startFlipping();
-  });
-
-  startFlipping();
 })();
