@@ -1,27 +1,391 @@
+/*
+ * Speed Dial Club Portfolio
+ * Reel engagement rate = (Likes + Comments) / Views * 100
+ */
 
-// Source data below was extracted from the two SDC tracker PDFs. Missing likes/comments remain null.
-const campaigns = [{"name":"HUNKKAAR TL REELS","budget":69000,"reelsCount":15,"views":85673,"cpv":0.81,"reels":[{"url":"https://www.instagram.com/reels/DdL0eXyKVQx/","views":2084,"likes":110,"comments":9},{"url":"https://www.instagram.com/reel/DdJogxsN_4O/","views":17344,"likes":511,"comments":24},{"url":"https://www.instagram.com/reel/DdJXJQloIUD","views":1599,"likes":85,"comments":9},{"url":"https://www.instagram.com/reel/DdJgW6CIbwj","views":5271,"likes":278,"comments":24},{"url":"https://www.instagram.com/reels/DdJdDx9oZJ8/","views":3783,"likes":130,"comments":32},{"url":"https://www.instagram.com/reel/DdWLhvkKsNl","views":9757,"likes":182,"comments":8},{"url":"https://www.instagram.com/reel/DdV7tSoMes4","views":378,"likes":2,"comments":0},{"url":"https://www.instagram.com/reel/DdJpnYFTNp_","views":3327,"likes":103,"comments":45},{"url":"https://www.instagram.com/reel/DdJSBoiqWzS/","views":3961,"likes":3,"comments":53},{"url":"https://www.instagram.com/reel/DdJpYD-oPr3","views":7023,"likes":296,"comments":14},{"url":"https://www.instagram.com/reels/DdJXjY9MwnT/","views":15474,"likes":186,"comments":13},{"url":"https://www.instagram.com/reel/DdLw7cMpMzf","views":2962,"likes":3,"comments":10},{"url":"https://www.instagram.com/reel/DdL-E6ys9Ro","views":2943,"likes":168,"comments":13},{"url":"https://www.instagram.com/reel/DdJq9DVJgNW","views":2870,"likes":151,"comments":8},{"url":"https://www.instagram.com/reel/DdJnIemCVfI","views":6897,"likes":372,"comments":14}]},{"name":"THUMS UP","budget":49950,"reelsCount":20,"views":284763,"cpv":0.18,"reels":[{"url":"https://www.instagram.com/reel/Db3X_w9Ih7e","views":3026,"likes":66,"comments":0},{"url":"https://www.instagram.com/reel/Db5VrHchoOX","views":2844,"likes":3,"comments":0},{"url":"https://www.instagram.com/reel/Db3WnfisYFt","views":2839,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DcdwCRhJf4J/?","views":2469,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/Dcdy3IOzd6f/?","views":204199,"likes":3314,"comments":72},{"url":"https://www.instagram.com/reel/DcdxvQ9B1b1/","views":3302,"likes":151,"comments":23},{"url":"https://www.instagram.com/reel/DcdwneAOc8A","views":2757,"likes":78,"comments":2},{"url":"https://www.instagram.com/reel/DcBWjMVT2e8/","views":3319,"likes":3,"comments":1},{"url":"https://www.instagram.com/reel/Db_NY1jPkHN/?","views":2285,"likes":78,"comments":2},{"url":"https://www.instagram.com/reel/DcflhS5oe3m/","views":2059,"likes":3,"comments":8},{"url":"https://www.instagram.com/reel/DcgWxA9I2ju/?","views":3493,"likes":3,"comments":0},{"url":"https://www.instagram.com/reel/DcP0ynHIx-G/","views":18319,"likes":353,"comments":13},{"url":"https://www.instagram.com/reel/DcRZ8ibt9jv/?","views":1548,"likes":3,"comments":0},{"url":"https://www.instagram.com/reel/Dcd7GOaMDCP","views":17855,"likes":246,"comments":1},{"url":"https://www.instagram.com/reel/DcNoJ6IpUhw","views":1001,"likes":3,"comments":0},{"url":"https://www.instagram.com/reel/DcONmHfuJMN/","views":3935,"likes":266,"comments":10},{"url":"https://www.instagram.com/reel/DcdyJyDI4k6/?","views":351,"likes":16,"comments":4},{"url":"https://www.instagram.com/reel/DcAs3qXNrnD","views":2468,"likes":3,"comments":2},{"url":"https://www.instagram.com/reel/DcfnBdDxarU/","views":3226,"likes":52,"comments":13},{"url":"https://www.instagram.com/reel/Db-s1-RvQKo","views":3468,"likes":50,"comments":0}]},{"name":"NETFLIX | ALWAYS ON","budget":260000,"reelsCount":17,"views":1861863,"cpv":0.14,"reels":[{"url":"https://www.instagram.com/reel/DaLAnewyEnG","views":166889,"likes":5464,"comments":39},{"url":"https://www.instagram.com/reel/DbBOdrKsugC/","views":10998,"likes":3,"comments":48},{"url":"https://www.instagram.com/reel/DbTM35XtiC-/","views":816466,"likes":58653,"comments":378},{"url":"https://www.instagram.com/reel/DbQo-i7NxXu/","views":9011,"likes":3,"comments":32},{"url":"https://www.instagram.com/reel/DbU6ThsNSNs/","views":447571,"likes":50385,"comments":514},{"url":"https://www.instagram.com/reels/DbvHntUCSa9/","views":20990,"likes":1387,"comments":25},{"url":"https://www.instagram.com/reel/Db_Dtj3OE7l/","views":34965,"likes":3,"comments":38},{"url":"https://www.instagram.com/reel/DctWblAJBRT","views":5842,"likes":3,"comments":8},{"url":"https://www.instagram.com/reel/DbWAAheSJ7P/","views":14382,"likes":221,"comments":7},{"url":"https://www.instagram.com/reel/DbasCPTyp9-/","views":12692,"likes":188,"comments":2},{"url":"https://www.instagram.com/reel/DbfyYbfSks_/","views":14914,"likes":227,"comments":15},{"url":"https://www.instagram.com/reel/DbVvTZmTlwr","views":21637,"likes":3,"comments":12},{"url":"https://www.instagram.com/reel/Dbijv4cTIFw/","views":125250,"likes":3381,"comments":22},{"url":"https://www.instagram.com/reels/DcL9icKTDwE/","views":82189,"likes":3,"comments":12},{"url":"https://www.instagram.com/reel/Dbs9vQNIW2m/","views":24674,"likes":143,"comments":17},{"url":"https://www.instagram.com/reel/DcRJgsCo6BT","views":24275,"likes":269,"comments":23},{"url":"https://www.instagram.com/reels/DcfseLboE-C/","views":15932,"likes":138,"comments":14}]},{"name":"STAR PLUS | YFT","budget":320000,"reelsCount":40,"views":322074,"cpv":0.99,"reels":[{"url":"https://www.instagram.com/reel/DbppYj9yiiK","views":9718,"likes":3,"comments":6},{"url":"https://www.instagram.com/reel/DbqTuGmzsCK","views":3468,"likes":81,"comments":12},{"url":"https://www.instagram.com/reel/DbvA9VpPke2","views":6569,"likes":3,"comments":11},{"url":"https://www.instagram.com/reel/DbqV-ScT42T","views":3467,"likes":87,"comments":4},{"url":"https://www.instagram.com/reel/DbqRZVtCi4q","views":1563,"likes":3,"comments":8},{"url":"https://www.instagram.com/reel/Dbqaph8h0ol","views":5402,"likes":80,"comments":5},{"url":"https://www.instagram.com/reel/Dbs_4lfu7u-/","views":1887,"likes":59,"comments":1},{"url":"https://www.instagram.com/reel/Dbqrg4nBrab","views":1222,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DbqqYRfpm0t","views":17373,"likes":3,"comments":16},{"url":"https://www.instagram.com/reel/DbqoybRJfTF","views":7878,"likes":3,"comments":6},{"url":"https://www.instagram.com/reel/DbqqopdJxLM","views":3139,"likes":3,"comments":9},{"url":"https://www.instagram.com/reel/DbsSYAQN_IY/","views":22455,"likes":3,"comments":3},{"url":"https://www.instagram.com/reel/Dbqy9DQMRDN","views":4246,"likes":125,"comments":18},{"url":"https://www.instagram.com/reel/DbsxY-tzGJQ/","views":6020,"likes":279,"comments":8},{"url":"https://www.instagram.com/reel/DbqTHbDpJh1","views":2787,"likes":3,"comments":24},{"url":"https://www.instagram.com/reel/DbijCnQMIas","views":24718,"likes":3,"comments":18},{"url":"https://www.instagram.com/reel/DblGMNVt9wd","views":11929,"likes":3,"comments":9},{"url":"https://www.instagram.com/reel/DboB2-dIGVd","views":5050,"likes":126,"comments":0},{"url":"https://www.instagram.com/reel/DbllG-qMJer/","views":4162,"likes":3,"comments":17},{"url":"https://www.instagram.com/reel/Dblkdl1SWQ4","views":14598,"likes":140,"comments":10},{"url":"https://www.instagram.com/reel/DblPhhGIWGh","views":2798,"likes":41,"comments":9},{"url":"https://www.instagram.com/reel/DbnrMQSJZdY","views":3183,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DbqSA_WNQ6J/","views":5591,"likes":140,"comments":3},{"url":"https://www.instagram.com/reel/DblpajBOp7g/","views":2932,"likes":61,"comments":7},{"url":"https://www.instagram.com/reel/Dbn3KXVAOlX/","views":2233,"likes":77,"comments":4},{"url":"https://www.instagram.com/reel/DbqQowdRrRd","views":23118,"likes":3,"comments":14},{"url":"https://www.instagram.com/reel/DblfS0tP2pX/","views":9301,"likes":73,"comments":2},{"url":"https://www.instagram.com/reel/DbqPnzaIf-N","views":12822,"likes":208,"comments":6},{"url":"https://www.instagram.com/reel/DblefFZTHa0","views":7313,"likes":3,"comments":6},{"url":"https://www.instagram.com/reel/Dbn-dnfI9bV","views":2658,"likes":64,"comments":6},{"url":"https://www.instagram.com/reel/Dbn8ybQSWdw/","views":11170,"likes":133,"comments":6},{"url":"https://www.instagram.com/reel/Dbn2XQ8NG6a/","views":12588,"likes":3,"comments":2},{"url":"https://www.instagram.com/reel/Dbn8zK3TTdZ","views":8642,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DbpZiJvxqia","views":1784,"likes":20,"comments":0},{"url":"https://www.instagram.com/reel/DbppBs1TEtT","views":4465,"likes":67,"comments":6},{"url":"https://www.instagram.com/reel/DbqMU0dMKvK","views":16573,"likes":333,"comments":27},{"url":"https://www.instagram.com/reel/Dbpqq2fP3oB","views":7851,"likes":3,"comments":14},{"url":"https://www.instagram.com/reels/DbnVaj4h7we/","views":22442,"likes":1126,"comments":15},{"url":"https://www.instagram.com/reel/DbtCeu2Owb2/","views":4278,"likes":113,"comments":3},{"url":"https://www.instagram.com/reel/Dbp6yZ7vKHk/","views":2681,"likes":3,"comments":1}]},{"name":"JH | CHIRAIYA - 5 PHASES","budget":1457500,"reelsCount":96,"views":14871138,"cpv":0.098,"reels":[{"url":"https://www.instagram.com/reel/DWMHl3XiTIZ/","views":144644,"likes":3001,"comments":79},{"url":"https://www.instagram.com/reel/DWZHY8zknrK/","views":106495,"likes":5209,"comments":28},{"url":"https://www.instagram.com/reel/DWOnr2DDDGE/","views":38169,"likes":936,"comments":19},{"url":"https://www.instagram.com/reel/DWWnd1OE1fU","views":1315364,"likes":113466,"comments":1835},{"url":"https://www.instagram.com/reel/DWRiEA5JM0N","views":168936,"likes":5758,"comments":205},{"url":"https://www.instagram.com/reel/DWZiJutk3ZB","views":40051,"likes":686,"comments":27},{"url":"https://www.instagram.com/reel/DWRiEA5JM0N","views":168936,"likes":5758,"comments":205},{"url":"https://www.instagram.com/reel/DWWtUwmkrvI","views":79139,"likes":3299,"comments":70},{"url":"https://www.instagram.com/reel/DXD3Z93gih3","views":21886,"likes":347,"comments":19}]},{"name":"Amazon | Home / Valentine's Day","budget":127500,"reelsCount":6,"views":289987,"cpv":0.44,"reels":[{"url":"https://www.instagram.com/reel/DPESzrpErRu","views":50000,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DPMO3MJk3Ap","views":31940,"likes":929,"comments":5},{"url":"https://www.instagram.com/reel/DPeIfn1E5qD","views":36348,"likes":3,"comments":14},{"url":"https://www.instagram.com/reel/DPMcdDGDA5d","views":31383,"likes":957,"comments":12},{"url":"https://www.instagram.com/reel/DUlBSCiE1uT","views":71852,"likes":2753,"comments":59},{"url":"https://www.instagram.com/reel/DM-fTkuS-SA","views":68464,"likes":1019,"comments":79}]},{"name":"Spotify | Wrapped 2025","budget":186000,"reelsCount":13,"views":711881,"cpv":0.261,"reels":[{"url":"https://www.instagram.com/reel/DR4ufofkkk0","views":73235,"likes":3253,"comments":48},{"url":"https://www.instagram.com/reel/DR4vHWLk4pE","views":11686,"likes":3,"comments":7},{"url":"https://www.instagram.com/reel/DR4f5-xjTT6","views":25000,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DR6h4Fvk4f_","views":30000,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DR4P_puCRiU","views":76571,"likes":2499,"comments":18},{"url":"https://www.instagram.com/reel/DR4dymSkzV-","views":199551,"likes":3,"comments":78},{"url":"https://www.instagram.com/reel/DR43CdvDx-9","views":49339,"likes":3,"comments":14},{"url":"https://www.instagram.com/reel/DR4cUQWDD2K","views":13370,"likes":231,"comments":0},{"url":"https://www.instagram.com/reel/DR4wNLxDGSd","views":50000,"likes":null,"comments":null},{"url":"https://www.instagram.com/reel/DR7HvgWEx28","views":42179,"likes":3,"comments":15},{"url":"https://www.instagram.com/reel/DR4yUZTjDe4","views":83195,"likes":1876,"comments":69},{"url":"https://www.instagram.com/reel/DR7g-TMkh67","views":11688,"likes":259,"comments":17},{"url":"https://www.instagram.com/reel/DR4qRjnk_4-","views":46067,"likes":1262,"comments":6}]},{"name":"Avatar 3","budget":16000,"reelsCount":1,"views":173227,"cpv":0.092,"reels":[{"url":"https://www.instagram.com/reels/DSfqU4QEya4/","views":173227,"likes":2959,"comments":10}]},{"name":"Sotbella","budget":75000,"reelsCount":3,"views":1549710,"cpv":0.048,"reels":[{"url":"https://www.instagram.com/reel/DYW4aNfPvva","views":1342529,"likes":96146,"comments":629},{"url":"https://www.instagram.com/reel/DYchewnPk68","views":140656,"likes":4633,"comments":121},{"url":"https://www.instagram.com/reel/DYMY-gCPeD-","views":66525,"likes":2193,"comments":559}]},{"name":"Whipmantra","budget":25000,"reelsCount":1,"views":21010,"cpv":1.19,"reels":[{"url":"https://www.instagram.com/reel/DXgnoAyjz6W","views":21010,"likes":657,"comments":11}]},{"name":"Dove","budget":13000,"reelsCount":1,"views":17211,"cpv":0.755,"reels":[{"url":"https://www.instagram.com/reel/DUfXyJ_jxNC","views":17211,"likes":284,"comments":9}]},{"name":"Aqualogica","budget":16500,"reelsCount":1,"views":400978,"cpv":0.041,"reels":[{"url":"https://www.instagram.com/reel/DWTwVQvD36k","views":400978,"likes":925,"comments":27}]},{"name":"Samsung","budget":15000,"reelsCount":1,"views":20291,"cpv":0.739,"reels":[{"url":"https://www.instagram.com/reel/DUbFRRdj_xA","views":20291,"likes":382,"comments":13}]},{"name":"Glam21","budget":16000,"reelsCount":1,"views":14800,"cpv":1.081,"reels":[{"url":"https://www.instagram.com/reel/DUanvzvD0r1","views":14800,"likes":206,"comments":27}]}];
+const campaigns = [
+  {
+    name: "HUNKKAAR TL REELS",
+    reelCount: 15,
+    views: 85673,
+    reels: [
+      ["DdJogxsN_4O", 17344, 511, 24],
+      ["DdJXjY9MwnT", 15474, 186, 13],
+      ["DdWLhvkKsNl", 9757, 182, 8],
+      ["DdJpYD-oPr3", 7023, 296, 14],
+      ["DdJnIemCVfI", 6897, 372, 14]
+    ]
+  },
+  {
+    name: "THUMS UP",
+    reelCount: 20,
+    views: 284763,
+    reels: [
+      ["Dcdy3IOzd6f", 204199, 3314, 72],
+      ["DcP0ynHIx-G", 18319, 353, 13],
+      ["Dcd7GOaMDCP", 17855, 246, 1],
+      ["DcONmHfuJMN", 3935, 266, 10],
+      ["DcgWxA9I2ju", 3493, 3, 0]
+    ]
+  },
+  {
+    name: "NETFLIX | ALWAYS ON",
+    reelCount: 17,
+    views: 1848677,
+    reels: [
+      ["DbTM35XtiC-", 816466, 58653, 378],
+      ["DbU6ThsNSNs", 447571, 50385, 514],
+      ["DaLAnewyEnG", 166889, 5464, 39],
+      ["Dbijv4cTIFw", 125250, 3381, 22],
+      ["DcL9icKTDwE", 82189, 3, 12]
+    ]
+  },
+  {
+    name: "STAR PLUS | YFT",
+    reelCount: 40,
+    views: 322074,
+    reels: [
+      ["DbijCnQMIas", 24718, 3, 18],
+      ["DbqQowdRrRd", 23118, 3, 14],
+      ["DbsSYAQN_IY", 22455, 3, 3],
+      ["DbnVaj4h7we", 22442, 1126, 15],
+      ["DbqqYRfpm0t", 17373, 3, 16]
+    ]
+  },
+  {
+    name: "JH | CHIRAIYA, 5 PHASES",
+    reelCount: 95,
+    views: 14702202,
+    reels: [
+      ["DWbaCbgk_Ko", 6615202, 182263, 1274],
+      ["DXZZRlDCQLh", 3699349, 82979, 806],
+      ["DWWnd1OE1fU", 1315364, 113466, 1835],
+      ["DXerAd2ET1i", 359090, 36966, 1142],
+      ["DWRiEA5JM0N", 168936, 5758, 205]
+    ]
+  },
+  {
+    name: "JH | PRITAM & PEDRO",
+    reelCount: 63,
+    views: 2614349,
+    reels: [
+      ["DadHlJuhIan", 616416, 24987, 211],
+      ["Dak2JIYNCq0", 438164, 13687, 84],
+      ["DaznEtsSwdA", 265873, 3, 76],
+      ["DadG8HAvCuF", 188270, 10863, 64],
+      ["Daf2JCThyuM", 125000, 0, 0]
+    ]
+  },
+  {
+    name: "JH | HUNKKAAR REELS",
+    reelCount: 9,
+    views: 79868,
+    reels: [
+      ["Dd6gTAeTrqG", 28678, 1654, 33],
+      ["Dd9JupWtpc1", 18582, 734, 15],
+      ["DeEjki4im4C", 9186, 669, 9],
+      ["DeElshTIurU", 6506, 128, 9],
+      ["Dd5xBbTz02T", 5687, 3, 7]
+    ]
+  },
+  {
+    name: "PVR | STREET FIGHTER",
+    reelCount: 21,
+    views: 510428,
+    reels: [
+      ["DeJ3ROTBu7f", 287464, 7161, 38],
+      ["DeKASd3IruZ", 84925, 198, 32],
+      ["DeHX1tcz6-F", 75216, 7676, 48],
+      ["DeKB4GoNmqm", 17420, 892, 47],
+      ["DeJztZ_tvvR", 13624, 3, 30]
+    ]
+  },
+  {
+    name: "NYKD BY NYKAA",
+    reelCount: 10,
+    views: 4304024,
+    reels: [
+      ["DaKmkObIRNU", 3076979, 5322, 981],
+      ["DYR6wsZS34t", 300000, 0, 0],
+      ["DauTlwNJBZT", 287763, 3, 33],
+      ["DZDMVncyMvt", 229894, 6614, 824],
+      ["DcD_zDWTXmr", 137383, 3, 136]
+    ]
+  },
+  {
+    name: "PAPERBOAT NATA",
+    reelCount: 14,
+    views: 4230879,
+    reels: [
+      ["DYevIskT2CC", 2128082, 100405, 518],
+      ["DYCmX45JroC", 1924710, 62060, 2337],
+      ["DYWoL9ITwq4", 71160, 1174, 212],
+      ["DYjzIdwStI7", 33063, 381, 30],
+      ["DYO46-DM5y4", 15236, 347, 15]
+    ]
+  },
+  {
+    name: "NECESERA",
+    reelCount: 1,
+    views: 34150,
+    reels: [
+      ["DXKAfuCj46U", 34150, 3, 9]
+    ]
+  },
+  {
+    name: "ZEPTO X SPOTIFY",
+    reelCount: 1,
+    views: 50000,
+    reels: [
+      ["DY_9p-jTngc", 50000, 0, 0]
+    ]
+  },
+  {
+    name: "NETFLIX | MAA BEHEN",
+    reelCount: 1,
+    views: 27971,
+    reels: [
+      ["DZm_qMzpkC1", 27971, 1514, 15]
+    ]
+  },
+  {
+    name: "DOT & KEY",
+    reelCount: 2,
+    views: 223161,
+    reels: [
+      ["DW6lcVriM2f", 117005, 4147, 33],
+      ["DW33xZ0iYAp", 106156, 562, 68]
+    ]
+  },
+  {
+    name: "PHILIPS | OBI / OB / HSB",
+    reelCount: 23,
+    views: 783519,
+    reels: [
+      ["DJmAOlioKO9", 99985, 2357, 93],
+      ["DJjzxfJI2dw", 93752, 1953, 67],
+      ["DJotM9qTrwJ", 75719, 2691, 63],
+      ["DTN0Xe8D05M", 65729, 993, 10],
+      ["DN6DOwHgcqr", 53704, 1784, 52]
+    ]
+  },
+  {
+    name: "SHEMAROO | 2 SONGS",
+    reelCount: 15,
+    views: 1088979,
+    reels: [
+      ["DK9eCoAPQ5o", 376484, 1278, 171],
+      ["DHtUi2oMFpd", 201987, 2004, 188],
+      ["DHuu1kcSx13", 88769, 2032, 20],
+      ["DHxjCddJUry", 80106, 1220, 27],
+      ["DHtSmDNClH_", 50000, 0, 0]
+    ]
+  },
+  {
+    name: "ALIENKIND",
+    reelCount: 16,
+    views: 469828,
+    reels: [
+      ["DLSRDUXxnvo", 132201, 2687, 36],
+      ["DLXJG_ZPbcj", 57053, 1855, 44],
+      ["DLVAagHvmRx", 45680, 2216, 69],
+      ["DMNbdQET4H1", 39452, 328, 30],
+      ["DJcGExUzt0_", 32657, 786, 4]
+    ]
+  },
+  {
+    name: "AJIO | 3 PHASES",
+    reelCount: 34,
+    views: 1080259,
+    reels: [
+      ["DQACjnmkxbk", 199522, 4668, 89],
+      ["DKkJcKzIpU1", 124017, 3284, 86],
+      ["DKo5dJHzz6Y", 65104, 1019, 26],
+      ["DPG6D4nkxWg", 63328, 1529, 22],
+      ["DKo0IZ3KGdC", 46844, 831, 31]
+    ]
+  },
+  {
+    name: "GUD GUM",
+    reelCount: 5,
+    views: 148474,
+    reels: [
+      ["DMDi_2fTe-0", 36461, 1308, 8],
+      ["DK9g7SVPYtG", 33853, 848, 39],
+      ["DL91dtuyfRr", 32275, 417, 30],
+      ["DLXzRVqzFl3", 26645, 990, 36],
+      ["DLFk90hJWmU", 19240, 353, 11]
+    ]
+  },
+  {
+    name: "FARMLEY",
+    reelCount: 11,
+    views: 309198,
+    reels: [
+      ["DPWhrkOiFfY", 75000, 0, 0],
+      ["DPBQAWNDDjZ", 66477, 3, 25],
+      ["DO6HzqAE86p", 44283, 3, 14],
+      ["DN7aXa8iAV2", 34615, 418, 7],
+      ["DO6Du1tE9L1", 20000, 0, 0]
+    ]
+  },
+  {
+    name: "UNDERNEAT | 2 PHASES",
+    reelCount: 23,
+    views: 4850541,
+    reels: [
+      ["DMc7BbaTEhb", 1927427, 20063, 1046],
+      ["DMLMFAWpKJy", 418940, 5215, 345],
+      ["DMDFgpZPeyO", 400000, 0, 0],
+      ["DO1G7TDk7sM", 320683, 3, 115],
+      ["DMDQn0dsCRn", 276692, 2184, 220]
+    ]
+  },
+  {
+    name: "AMAZON | HOME / VALENTINE'S DAY",
+    reelCount: 6,
+    views: 289987,
+    reels: [
+      ["DUlBSCiE1uT", 71852, 2753, 59],
+      ["DM-fTkuS-SA", 68464, 1019, 79],
+      ["DPESzrpErRu", 50000, 0, 0],
+      ["DPeIfn1E5qD", 36348, 3, 14],
+      ["DPMO3MJk3Ap", 31940, 929, 5]
+    ]
+  },
+  {
+    name: "SPOTIFY | WRAPPED 2025",
+    reelCount: 13,
+    views: 711881,
+    reels: [
+      ["DR4dymSkzV-", 199551, 3, 78],
+      ["DR4yUZTjDe4", 83195, 1876, 69],
+      ["DR4P_puCRiU", 76571, 2499, 18],
+      ["DR4ufofkkk0", 73235, 3253, 48],
+      ["DR4wNLxDGSd", 50000, 0, 0]
+    ]
+  },
+  {
+    name: "AVATAR 3",
+    reelCount: 1,
+    views: 173227,
+    reels: [
+      ["DSfqU4QEya4", 173227, 2959, 10]
+    ]
+  },
+  {
+    name: "SOTBELLA",
+    reelCount: 3,
+    views: 1549710,
+    reels: [
+      ["DYW4aNfPvva", 1342529, 96146, 629],
+      ["DYchewnPk68", 140656, 4633, 121],
+      ["DYMY-gCPeD-", 66525, 2193, 559]
+    ]
+  },
+  {
+    name: "WHIPMANTRA",
+    reelCount: 1,
+    views: 21010,
+    reels: [
+      ["DXgnoAyjz6W", 21010, 657, 11]
+    ]
+  },
+  {
+    name: "DOVE",
+    reelCount: 1,
+    views: 17211,
+    reels: [
+      ["DUfXyJ_jxNC", 17211, 284, 9]
+    ]
+  },
+  {
+    name: "AQUALOGICA",
+    reelCount: 1,
+    views: 400978,
+    reels: [
+      ["DWTwVQvD36k", 400978, 925, 27]
+    ]
+  },
+  {
+    name: "SAMSUNG",
+    reelCount: 1,
+    views: 20291,
+    reels: [
+      ["DUbFRRdj_xA", 20291, 382, 13]
+    ]
+  },
+  {
+    name: "GLAM21",
+    reelCount: 1,
+    views: 14800,
+    reels: [
+      ["DUanvzvD0r1", 14800, 206, 27]
+    ]
+  }
+];
 
-// Render and interaction logic
-(() => {
- const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
- const int=n=>Math.round(Number(n)||0).toLocaleString('en-IN');
- const money=n=>'₹'+Math.round(n).toLocaleString('en-IN');
- const cpv=n=>'₹'+Number(n).toFixed(4);
- const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- function reelURL(raw){try{const u=new URL(raw);if(!/(^|\.)instagram\.com$/i.test(u.hostname))return null;const m=u.pathname.match(/^\/(?:reel|reels|p)\/([\w-]+)/);return m?{url:u.href,embed:`https://www.instagram.com/reel/${m[1]}/embed/`}:null}catch{return null}}
- function er(r){if(r.views==null||r.likes==null||r.comments==null||Number(r.views)<=0)return null;return (Number(r.likes)+Number(r.comments))/Number(r.views)*100}
- function campaignER(c){const rs=c.reels||[];if(!rs.length||rs.some(r=>er(r)==null))return null;const v=rs.reduce((a,r)=>a+Number(r.views),0);return v?rs.reduce((a,r)=>a+Number(r.likes)+Number(r.comments),0)/v*100:null}
- function topReels(c){return [...(c.reels||[])].filter(r=>reelURL(r.url)).sort((a,b)=>(b.views||0)-(a.views||0)).slice(0,5)}
- function ranking(c,mode){if(mode==='cpv')return [...c].sort((a,b)=>(a.cpv??Infinity)-(b.cpv??Infinity));if(mode==='er')return [...c].sort((a,b)=>(campaignER(b)??-1)-(campaignER(a)??-1));return [...c].sort((a,b)=>(b.views||0)-(a.views||0))}
- function card(c,i){const rs=topReels(c), e=campaignER(c);return `<article class="campaign-card"><button class="campaign-summary" aria-expanded="false"><span class="rank">#${String(i+1).padStart(2,'0')}</span><span><span class="campaign-name">${esc(c.name)}</span><span class="campaign-sub">${int(c.reelsCount)} REELS · ${money(c.budget)} BUDGET</span></span><span class="campaign-stat"><strong>${int(c.views)}</strong><small>TOTAL VIEWS</small></span><span class="plus">+</span></button><div class="detail"><div class="detail-clip"><div class="detail-content"><div class="chips"><span class="chip">Budget <b>${money(c.budget)}</b></span><span class="chip">CPV <b>${cpv(c.cpv)}</b></span><span class="chip">Reels <b>${int(c.reelsCount)}</b></span><span class="chip">ER <b>${e==null?'Incomplete data':e.toFixed(2)+'%'}</b></span></div><div class="reel-grid">${rs.map((r,j)=>{const u=reelURL(r.url), rate=er(r);return `<button class="reel-card" data-url="${esc(u.url)}" aria-label="Open Reel ${j+1} for ${esc(c.name)}"><span class="reel-cover" data-position="TOP ${j+1}"><span class="play">▶</span></span><span class="reel-info"><span class="reel-views">${int(r.views)} views</span><span class="reel-er">${rate==null?'Engagement data incomplete':rate.toFixed(2)+'% ER'}</span></span></button>`}).join('')}</div></div></div></div></article>`}
- const list=$('#campaign-list'), search=$('#search'), sort=$('#sort');let priorFocus=null,observer;
- function render(){const q=(search.value||'').trim().toLowerCase(),filtered=campaigns.filter(c=>c.name.toLowerCase().includes(q)),ranked=ranking(filtered,sort.value);list.innerHTML=ranked.map(card).join('');$('#count').textContent=String(filtered.length).padStart(2,'0');$('#empty').hidden=filtered.length>0;if(observer)observer.disconnect();if('IntersectionObserver'in window){observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.04});$$('.campaign-card').forEach(x=>observer.observe(x))}else $$('.campaign-card').forEach(x=>x.classList.add('visible'))}
- function animate(el,duration=2400){const end=Number(el.dataset.count),start=Number(el.dataset.start||0),kind=el.dataset.kind,begin=performance.now();function frame(now){const p=Math.min(1,(now-begin)/duration),e=1-Math.pow(1-p,4),v=start+(end-start)*e;el.textContent=kind==='lakh'?'₹'+(v/100000).toFixed(2)+'L':kind==='cpv'?'₹'+v.toFixed(4):int(v);if(p<1)requestAnimationFrame(frame)}requestAnimationFrame(frame)}
- let totalsDone=false;function playTotals(){ $$('.totals-grid strong').forEach((el,i)=>{el.textContent=el.dataset.kind==='cpv'?'₹5.0000':'0';setTimeout(()=>animate(el),i*110)});const bar=$('#progress-bar');bar.style.transition='none';bar.style.width='0';requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.transition='width 2.7s ease';bar.style.width='100%'})) }
- const modal=$('#modal'),embed=$('#embed'),original=$('#original');function openReel(raw){const u=reelURL(raw);if(!u)return;priorFocus=document.activeElement;original.href=u.url;embed.innerHTML=`<iframe src="${esc(u.embed)}" title="Instagram Reel preview" loading="eager" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;modal.classList.add('show');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('.modal-close').focus()}
- function close(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');embed.innerHTML='';document.body.style.overflow='';if(priorFocus)priorFocus.focus()}
- list.addEventListener('click',e=>{const reel=e.target.closest('[data-url]');if(reel){openReel(reel.dataset.url);return}const btn=e.target.closest('.campaign-summary');if(!btn)return;const card=btn.closest('.campaign-card'),open=!card.classList.contains('open');$$('.campaign-card.open').forEach(c=>{c.classList.remove('open');$('.campaign-summary',c).setAttribute('aria-expanded','false')});if(open){card.classList.add('open');btn.setAttribute('aria-expanded','true')}});
- search.addEventListener('input',render);sort.addEventListener('change',render);$('#replay').addEventListener('click',playTotals);modal.addEventListener('click',e=>{if(e.target.closest('[data-close]'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))close()});
- if('IntersectionObserver'in window){const ob=new IntersectionObserver(es=>{if(!totalsDone&&es.some(e=>e.isIntersecting)){totalsDone=true;playTotals();ob.disconnect()}},{threshold:.22});ob.observe($('#totals'))}else playTotals();render();
-})();
+const formatNumber = value =>
+  new Intl.NumberFormat("en-IN").format(value);
+
+const getEngagementRate = (likes, comments, views) => {
+  if (!views) return 0;
+  return ((likes + comments) / views) * 100;
+};
+
+const getReelUrl = id =>
+  `https://www.instagram.com/reel/${id}/`;
+
+const campaignList = document.getElementById("campaignList");
+
+campaignList.innerHTML = campaigns.map((campaign, index) => {
+  const sortedReels = [...campaign.reels]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  const reelCards = sortedReels.map((reel, reelIndex) => {
+    const [id, views, likes, comments] = reel;
+    const er = getEngagementRate(likes, comments, views);
+
+    return `
+      <a
+        class="reel-card"
+        href="${getReelUrl(id)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open Reel ${reelIndex + 1}, ${formatNumber(views)} views"
+      >
+        <div class="reel-thumb">
+          <span class="rank">#${reelIndex + 1}</span>
+          <span class="play" aria-hidden="true">▶</span>
+        </div>
+
+        <strong class="views">${formatNumber(views)}</strong>
+        <span class="reel-label">Views</span>
+        <span class="reel-er">ER ${er.toFixed(2)}%</span>
+      </a>
+    `;
+  }).join("");
+
+  return `
+    <section class="campaign" id="campaign-${index + 1}">
+      <div class="campaign-info">
+        <span class="campaign-number">
+          CAMPAIGN / ${String(index + 1).padStart(2, "0")}
+        </span>
+
+        <h3>${campaign.name}</h3>
+
+        <p class="campaign-meta">
+          ${formatNumber(campaign.reelCount)} tracked Reels<br>
+          ${formatNumber(campaign.views)} total tracked views<br>
+          Top ${sortedReels.length} by views
+        </p>
+      </div>
+
+      <div class="reel-grid">
+        ${reelCards}
+      </div>
+    </section>
+  `;
+}).join("");
