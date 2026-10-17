@@ -1,0 +1,401 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --red: #D60B2A;
+  --ink: #181818;
+  --paper: #f7f4ee;
+  --line: rgba(24, 24, 24, .16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Grotesk', Arial, sans-serif;
+}
+
+.topbar {
+  height: 82px;
+  padding: 0 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand img {
+  width: 124px;
+  display: block;
+}
+
+.back {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.hero {
+  min-height: calc(100vh - 82px);
+  padding: 9vh 8vw 5vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--red);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.eyebrow {
+  font: 500 11px 'DM Mono', monospace;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: clamp(3.2rem, 9.5vw, 9rem);
+  line-height: .92;
+  letter-spacing: -.075em;
+  max-width: 1100px;
+  margin: 35px 0 25px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero h1 span {
+  color: #ffb7c2;
+}
+
+.intro {
+  max-width: 470px;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.55;
+}
+
+.scroll-link {
+  margin-top: 25px;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid white;
+  padding-bottom: 9px;
+  font-weight: 600;
+}
+
+.scroll-link span {
+  margin-left: 20px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: clamp(25px, 6vw, 90px);
+  margin-top: auto;
+  padding-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.hero-stats strong {
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  letter-spacing: -.06em;
+}
+
+.hero-stats span {
+  font: 11px 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.scribble {
+  position: absolute;
+  right: 10%;
+  top: 23%;
+  font-size: clamp(5rem, 18vw, 16rem);
+  color: #ffb7c2;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+main {
+  padding: 100px 7vw;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 55px;
+}
+
+.section-heading h2 {
+  font-size: clamp(2.3rem, 5vw, 5rem);
+  letter-spacing: -.07em;
+  margin: 12px 0 0;
+}
+
+.section-heading > p {
+  max-width: 300px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.campaign-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.campaign {
+  border-top: 1px solid var(--line);
+  padding: 32px 0 38px;
+  display: grid;
+  grid-template-columns: minmax(200px, .8fr) minmax(0, 2fr);
+  gap: 35px;
+}
+
+.campaign-info {
+  position: sticky;
+  top: 30px;
+  align-self: start;
+}
+
+.campaign-number {
+  font: 11px 'DM Mono', monospace;
+  color: var(--red);
+}
+
+.campaign h3 {
+  font-size: clamp(1.6rem, 3vw, 2.7rem);
+  letter-spacing: -.06em;
+  line-height: 1.05;
+  margin: 15px 0;
+}
+
+.campaign-meta {
+  font: 11px 'DM Mono', monospace;
+  color: #666;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+.reel-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.reel-card {
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reel-thumb {
+  aspect-ratio: 9 / 14;
+  background: #e8dfd8;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .25s, background .25s;
+}
+
+.reel-card:hover .reel-thumb {
+  transform: translateY(-5px);
+  background: #f0c5cc;
+}
+
+.play {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(24, 24, 24, .45);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 17px;
+  padding-left: 3px;
+}
+
+.rank {
+  position: absolute;
+  top: 9px;
+  left: 10px;
+  font: 11px 'DM Mono', monospace;
+}
+
+.views {
+  font-size: clamp(1rem, 1.5vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -.04em;
+}
+
+.reel-label {
+  font: 10px 'DM Mono', monospace;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.reel-er {
+  font: 11px 'DM Mono', monospace;
+  color: var(--red);
+}
+
+footer {
+  background: var(--ink);
+  color: white;
+  padding: 70px 8vw 25px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+footer p {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  letter-spacing: -.06em;
+  max-width: 700px;
+  margin: 0 0 20px;
+}
+
+footer > a {
+  color: #ffb7c2;
+  font-size: 1.4rem;
+  text-decoration: none;
+  border-bottom: 1px solid #ffb7c2;
+  padding-bottom: 8px;
+}
+
+footer small {
+  margin-top: 70px;
+  color: #aaa;
+  font: 10px 'DM Mono', monospace;
+}
+
+.loading {
+  color: #666;
+}
+
+@media (max-width: 900px) {
+  .campaign {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .campaign-info {
+    position: static;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .scribble {
+    right: 2%;
+    top: 28%;
+    opacity: .55;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    height: 68px;
+  }
+
+  .brand img {
+    width: 105px;
+  }
+
+  .hero {
+    min-height: calc(100svh - 68px);
+    padding: 9vh 7vw 6vh;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 15vw, 5rem);
+    margin-top: 25px;
+  }
+
+  .scribble {
+    top: 32%;
+    right: -4%;
+    font-size: 7rem;
+  }
+
+  .hero-stats {
+    width: 100%;
+    gap: 18px;
+    padding-top: 65px;
+    justify-content: space-between;
+  }
+
+  .hero-stats strong {
+    font-size: 1.7rem;
+  }
+
+  .hero-stats span {
+    font-size: 9px;
+    max-width: 85px;
+    line-height: 1.5;
+  }
+
+  main {
+    padding: 70px 6vw;
+  }
+
+  .reel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .reel-thumb {
+    aspect-ratio: 9 / 11;
+  }
+
+  .campaign {
+    padding: 25px 0 30px;
+  }
+
+  .campaign h3 {
+    font-size: 2rem;
+  }
+
+  .campaign-meta {
+    font-size: 10px;
+  }
+
+  footer {
+    padding: 55px 7vw 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
