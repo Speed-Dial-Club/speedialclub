@@ -433,3 +433,51 @@ campaignList.innerHTML = rankedCampaigns.map((campaign, index) => {
     </section>
   `;
 }).join("");
+
+
+/* ===== TOTAL METRICS FLIPBOARD ===== */
+
+(() => {
+  const board = document.getElementById("metricsBoard");
+  if (!board) return;
+
+  let flipInterval;
+  let paused = false;
+
+  const flip = () => {
+    if (!paused) {
+      board.classList.toggle("is-flipped");
+    }
+  };
+
+  const startFlipping = () => {
+    clearInterval(flipInterval);
+    flipInterval = setInterval(flip, 3500);
+  };
+
+  board.addEventListener("mouseenter", () => {
+    paused = true;
+    clearInterval(flipInterval);
+  });
+
+  board.addEventListener("mouseleave", () => {
+    paused = false;
+    startFlipping();
+  });
+
+  board.addEventListener("click", () => {
+    board.classList.toggle("is-flipped");
+  });
+
+  board.addEventListener("focusin", () => {
+    paused = true;
+    clearInterval(flipInterval);
+  });
+
+  board.addEventListener("focusout", () => {
+    paused = false;
+    startFlipping();
+  });
+
+  startFlipping();
+})();
