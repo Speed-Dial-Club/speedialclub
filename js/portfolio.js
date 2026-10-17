@@ -436,7 +436,8 @@ campaignList.innerHTML = rankedCampaigns.map((campaign, index) => {
 
 
 
-/* ===== SPLIT-FLAP DIGIT ANIMATION ===== */
+
+/* ===== WORKING SPLIT-FLAP ANIMATION ===== */
 
 (() => {
   const values = document.querySelectorAll(
@@ -445,72 +446,64 @@ campaignList.innerHTML = rankedCampaigns.map((campaign, index) => {
 
   if (!values.length) return;
 
-  const makeDigit = (digit, animate = false) => {
-    const tile = document.createElement("span");
-    tile.className = "flap-digit";
-    tile.setAttribute("aria-hidden", "true");
-
-    const staticDigit = document.createElement("span");
-    staticDigit.className = "digit-static";
-    staticDigit.textContent = digit;
-
-    const top = document.createElement("span");
-    top.className = "digit-top";
-    const topText = document.createElement("span");
-    topText.textContent = digit;
-    top.appendChild(topText);
-
-    const bottom = document.createElement("span");
-    bottom.className = "digit-bottom";
-    const bottomText = document.createElement("span");
-    bottomText.textContent = digit;
-    bottom.appendChild(bottomText);
-
-    const flip = document.createElement("span");
-    flip.className = "digit-flip";
-    const flipText = document.createElement("span");
-    flipText.textContent = digit;
-    flip.appendChild(flipText);
-
-    const seam = document.createElement("span");
-    seam.className = "digit-seam";
-
-    tile.append(staticDigit, top, bottom, flip, seam);
-
-    if (animate && /\d/.test(digit)) {
-      tile.dataset.target = digit;
-      tile.dataset.current = "8";
-      staticDigit.textContent = "8";
-      topText.textContent = "8";
-      bottomText.textContent = digit;
-      flipText.textContent = digit;
-      tile.classList.add("is-flipping");
-
-      flip.addEventListener("animationend", () => {
-        staticDigit.textContent = digit;
-        topText.textContent = digit;
-        bottomText.textContent = digit;
-        flipText.textContent = digit;
-        tile.classList.remove("is-flipping");
-      }, { once: true });
-    }
-
-    return tile;
-  };
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
   values.forEach((value, metricIndex) => {
     const target = value.dataset.value || "";
     value.replaceChildren();
 
-    [...target].forEach((char, charIndex) => {
-      if (/\d/.test(char)) {
-        value.appendChild(makeDigit(char, true));
-      } else {
+    [...target].forEach((char, index) => {
+      if (!/\d/.test(char)) {
         const symbol = document.createElement("span");
         symbol.className = "flap-symbol";
         symbol.textContent = char === " " ? "\u00a0" : char;
         symbol.setAttribute("aria-hidden", "true");
         value.appendChild(symbol);
+        return;
+      }
+
+      const tile = document.createElement("span");
+      tile.className = "flap-digit";
+      tile.setAttribute("aria-hidden", "true");
+
+      const current = document.createElement("span");
+      current.className = "digit-static";
+      current.textContent = reduceMotion ? char : "0";
+
+      const top = document.createElement("span");
+      top.className = "digit-top";
+      top.textContent = reduceMotion ? char : "0";
+
+      const bottom = document.createElement("span");
+      bottom.className = "digit-bottom";
+      bottom.textContent = char;
+
+      const flap = document.createElement("span");
+      flap.className = "digit-flip";
+      flap.textContent = char;
+
+      const seam = document.createElement("span");
+      seam.className = "digit-seam";
+
+      tile.append(current, top, bottom, flap, seam);
+      value.appendChild(tile);
+
+      if (!reduceMotion) {
+        const delay = metricIndex * 180 + index * 75;
+
+        setTimeout(() => {
+          tile.classList.add("is-flipping");
+
+          flap.addEventListener("animationend", () => {
+            current.textContent = char;
+            top.textContent = char;
+            bottom.textContent = char;
+            flap.textContent = char;
+            tile.classList.remove("is-flipping");
+          }, { once: true });
+        }, delay);
       }
     });
 
