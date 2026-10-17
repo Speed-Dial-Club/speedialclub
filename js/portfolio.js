@@ -1,5 +1,8 @@
+
 /*
  * Speed Dial Club Portfolio
+ * Campaigns ranked by total tracked views, highest first.
+ * Reels ranked by views within each campaign.
  * Reel engagement rate = (Likes + Comments) / Views * 100
  */
 
@@ -338,7 +341,15 @@ const getReelUrl = id =>
 
 const campaignList = document.getElementById("campaignList");
 
-campaignList.innerHTML = campaigns.map((campaign, index) => {
+/*
+ * Sort campaigns by total tracked views.
+ * The original campaign data remains unchanged.
+ */
+const rankedCampaigns = [...campaigns].sort(
+  (a, b) => b.views - a.views
+);
+
+campaignList.innerHTML = rankedCampaigns.map((campaign, index) => {
   const sortedReels = [...campaign.reels]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5);
@@ -355,13 +366,46 @@ campaignList.innerHTML = campaigns.map((campaign, index) => {
         rel="noopener noreferrer"
         aria-label="Open Reel ${reelIndex + 1}, ${formatNumber(views)} views"
       >
-        <div class="reel-thumb">
-          <span class="rank">#${reelIndex + 1}</span>
-          <span class="play" aria-hidden="true">▶</span>
+        <div class="reel-flip">
+          <div class="reel-flip-inner">
+
+            <div class="reel-face reel-front">
+              <span class="rank">#${reelIndex + 1}</span>
+              <span class="play" aria-hidden="true">▶</span>
+              <span class="flip-hint">FLIP FOR STATS ↻</span>
+            </div>
+
+            <div class="reel-face reel-back">
+              <span class="back-rank">REEL / ${String(reelIndex + 1).padStart(2, "0")}</span>
+
+              <div class="back-stat">
+                <span>VIEWS</span>
+                <strong>${formatNumber(views)}</strong>
+              </div>
+
+              <div class="back-stat">
+                <span>LIKES</span>
+                <strong>${formatNumber(likes)}</strong>
+              </div>
+
+              <div class="back-stat">
+                <span>COMMENTS</span>
+                <strong>${formatNumber(comments)}</strong>
+              </div>
+
+              <div class="back-stat back-er">
+                <span>ENGAGEMENT RATE</span>
+                <strong>${er.toFixed(2)}%</strong>
+              </div>
+
+              <span class="back-cta">WATCH REEL ↗</span>
+            </div>
+
+          </div>
         </div>
 
         <strong class="views">${formatNumber(views)}</strong>
-        <span class="reel-label">Views</span>
+        <span class="reel-label">Views · Reel ${reelIndex + 1}</span>
         <span class="reel-er">ER ${er.toFixed(2)}%</span>
       </a>
     `;
@@ -379,7 +423,7 @@ campaignList.innerHTML = campaigns.map((campaign, index) => {
         <p class="campaign-meta">
           ${formatNumber(campaign.reelCount)} tracked Reels<br>
           ${formatNumber(campaign.views)} total tracked views<br>
-          Top ${sortedReels.length} by views
+          Top ${sortedReels.length} Reels by views
         </p>
       </div>
 
