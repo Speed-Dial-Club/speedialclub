@@ -17,7 +17,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--red);
+  background: var(--paper);
   color: var(--ink);
   font-family: 'Space Grotesk', Arial, sans-serif;
 }
@@ -26,6 +26,7 @@ body {
   height: 82px;
   padding: 0 5vw;
   display: flex;
+  background: var(--red);
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--line);
