@@ -941,3 +941,12 @@ footer small {
     animation-duration: .01ms;
   }
 }
+
+.flap-digit .digit-flip {
+  transform: rotateX(0deg);
+  transform-origin: bottom;
+}
+
+.flap-digit.is-flipping .digit-flip {
+  animation: splitFlap 0.32s ease-in forwards;
+}
