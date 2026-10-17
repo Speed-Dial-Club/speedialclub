@@ -17,7 +17,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--red);
   color: var(--ink);
   font-family: 'Space Grotesk', Arial, sans-serif;
 }
