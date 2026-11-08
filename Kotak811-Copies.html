@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kotak811 | Creator Copy Generator</title>
+
+  <link rel="stylesheet" href="css/copy-generator.css">
+</head>
+
+<body>
+
+  <section id="copy-generator">
+
+    <div class="sdc-copy-container">
+
+      <img
+        src="assets/logos/SDC Logo.png"
+        alt="Speed Dial Club"
+        class="sdc-copy-logo"
+      >
+
+      <div class="sdc-copy-card">
+
+        <div class="sdc-copy-header">
+          <p class="sdc-copy-eyebrow">KOTAK811 CAMPAIGN</p>
+          <h1>Your Copy. Ready to Go.</h1>
+          <p>Enter your details below to retrieve your personalised creator copy.</p>
+        </div>
+
+        <form id="sdc-copy-form">
+
+          <div class="sdc-input-group">
+            <label for="sdc-creator-name">Your Name</label>
+            <input
+              type="text"
+              id="sdc-creator-name"
+              placeholder="Enter your name"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="sdc-input-group">
+            <label for="sdc-creator-phone">Mobile Number</label>
+            <input
+              type="tel"
+              id="sdc-creator-phone"
+              placeholder="Enter your 10-digit mobile number"
+              inputmode="numeric"
+              autocomplete="tel"
+              maxlength="13"
+              required
+            >
+          </div>
+
+          <button
+            type="submit"
+            id="sdc-generate-button"
+          >
+            Generate Copy
+          </button>
+
+        </form>
+
+        <div id="sdc-copy-loading" hidden>
+          <div class="sdc-loader"></div>
+          <p id="sdc-loading-message">Checking your details...</p>
+        </div>
+
+        <div
+          id="sdc-copy-error"
+          role="alert"
+          hidden
+        ></div>
+
+        <div id="sdc-copy-result" hidden>
+
+          <div class="sdc-copy-result-header">
+            <h2>Your Generated Copy</h2>
+            <p>Your campaign copy is ready.</p>
+          </div>
+
+          <div
+            id="sdc-generated-copy"
+            class="sdc-generated-copy"
+          ></div>
+
+          <button
+            type="button"
+            id="sdc-copy-button"
+          >
+            <span id="sdc-copy-button-label">
+              Copy to Clipboard
+            </span>
+          </button>
+
+        </div>
+
+        <p class="sdc-copy-note">
+          This is your generated copy, please feel free to come back anytime to check the same
+        </p>
+
+      </div>
+
+      <p class="sdc-copy-footer">
+        Powered by Speed Dial Club
+      </p>
+
+    </div>
+
+  </section>
+
+  <script src="js/copy-generator.js"></script>
+
+</body>
+</html>
